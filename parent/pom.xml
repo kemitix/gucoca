@@ -46,8 +46,33 @@
             </dependency>
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-testing</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-spi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-sitemap</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-dynamodb</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-twitter</artifactId>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
 
             <!-- lombok -->

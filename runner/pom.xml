@@ -38,6 +38,22 @@
 
     <dependencies>
         <!-- gucoca -->
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-app</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-twitter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-sitemap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-dynamodb</artifactId>
+        </dependency>
 
         <!-- lombok -->
         <dependency>
