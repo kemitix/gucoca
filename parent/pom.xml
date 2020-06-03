@@ -16,6 +16,10 @@
     <packaging>pom</packaging>
 
     <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.tarket>${java.version}</maven.compiler.tarket>
+
         <tiles-maven-plugin.version>2.17</tiles-maven-plugin.version>
         <kemitix-maven-tiles.version>2.7.0</kemitix-maven-tiles.version>
         <kemitix-checkstyle.version>5.4.0</kemitix-checkstyle.version>
@@ -61,18 +65,18 @@
             </dependency>
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-sitemap</artifactId>
-                <version>DEV-SNAPSHOT</version>
+                <artifactId>gucoca-s3-stories</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-dynamodb</artifactId>
-                <version>DEV-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-twitter</artifactId>
-                <version>DEV-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- lombok -->
@@ -118,7 +122,6 @@
                         <tile>net.kemitix.tiles:compiler-jdk-11:${kemitix-maven-tiles.version}</tile>
                         <tile>net.kemitix.tiles:pmd:${kemitix-maven-tiles.version}</tile>
                         <tile>net.kemitix.tiles:testing:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.tiles:frontend:${kemitix-maven-tiles.version}</tile>
                         <tile>net.kemitix.checkstyle:tile:${kemitix-checkstyle.version}</tile>
                         <tile>net.kemitix.tiles:coverage:${kemitix-maven-tiles.version}</tile>
                         <tile>net.kemitix.tiles:pitest:${kemitix-maven-tiles.version}</tile>

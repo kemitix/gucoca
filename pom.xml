@@ -10,7 +10,7 @@
         <module>runner</module>
         <module>spi</module>
         <module>app</module>
-        <module>sitemap</module>
+        <module>s3-stories</module>
         <module>dynamodb</module>
         <module>twitter</module>
     </modules>

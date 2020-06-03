@@ -31,6 +31,13 @@
             <groupId>net.kemitix.gucoca</groupId>
             <artifactId>gucoca-spi</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

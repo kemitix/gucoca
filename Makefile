@@ -8,16 +8,13 @@ install:
 	mvn install
 
 dev:
-	mvn -pl runner quarkus:dev ${RUN_PARAMS}
+	mvn -pl runner spring-boot:run ${RUN_PARAMS}
 
 run: install
-	java ${RUN_PARAMS} -jar runner/target/gucoca-DEV-SNAPSHOT-runner.jar
+	java ${RUN_PARAMS} -jar runner/target/gucoca-DEV-SNAPSHOT.jar
 
 clean:
 	mvn clean
 
 quick-build:
 	mvn clean install -DskipTests -DskipITs
-
-kill-runners:
-	ps ax|grep clover-runne[r]|cut -b-5|xargs kill -9

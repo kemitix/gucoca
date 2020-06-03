@@ -1,0 +1,16 @@
+<job id="gucoca" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+<!--    <split id="gather">-->
+<!--        <flow id="gather-stories">-->
+    <step id="load-stories">
+        <batchlet ref="loadStories"/>
+    </step>
+<!--        </flow>-->
+<!--        <flow id="gather-history">-->
+<!--            <step id="load-history"/>-->
+<!--        </flow>-->
+<!--    </split>-->
+<!--    <step id="filter-out-recently-publicised"/>-->
+<!--    <step id="select-a-story"/>-->
+<!--    <step id="publicise-story"/>-->
+<!--    <step id="add-to-publicity-history"/>-->
+</job>

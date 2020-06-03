@@ -10,7 +10,7 @@
         <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>gucoca-sitemap</artifactId>
+    <artifactId>gucoca-s3-stories</artifactId>
 
     <properties>
         <pitest.skip>true</pitest.skip>

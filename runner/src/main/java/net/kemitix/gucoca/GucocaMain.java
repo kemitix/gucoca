@@ -1,24 +1,31 @@
 package net.kemitix.gucoca;
 
-import io.quarkus.runtime.QuarkusApplication;
-import io.quarkus.runtime.annotations.QuarkusMain;
 import net.kemitix.gucoca.spi.GucocaService;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import java.util.Arrays;
 
-@QuarkusMain
-public class GucocaMain
-        implements QuarkusApplication {
+@SpringBootApplication
+public class GucocaMain implements ApplicationRunner {
 
-    @Inject Instance<GucocaService> services;
+    private final GucocaService service;
+
+    @Inject
+    public GucocaMain(GucocaService service) {
+        this.service = service;
+    }
 
     @Override
-    public int run(String... args) {
-        services.forEach(service ->
-                service.run(Arrays.asList(args)));
-        return 0;
+    public void run(ApplicationArguments args) {
+        service.run(Arrays.asList(args.getSourceArgs()));
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(GucocaMain.class, args);
     }
 
 }
