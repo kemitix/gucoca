@@ -1,6 +1,8 @@
 package net.kemitix.gucoca.stories.s3;
 
 import lombok.extern.java.Log;
+import net.kemitix.gucoca.spi.JobStateData;
+import net.kemitix.gucoca.spi.Story;
 
 import javax.batch.api.chunk.AbstractItemWriter;
 import javax.batch.runtime.context.JobContext;
@@ -11,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Log
-//FIXME: this seems utterly generic - collect all items into transient user data
 public class WriteS3Stories extends AbstractItemWriter {
 
     @Inject JobContext jobContext;
@@ -30,7 +31,10 @@ public class WriteS3Stories extends AbstractItemWriter {
 
     @Override
     public void close() {
-        Object data = stepContext.getTransientUserData();
-        jobContext.setTransientUserData(data);
+        JobStateData jobStateData =
+                ((JobStateData) jobContext.getTransientUserData());
+        List<Story> stories = (List<Story>) stepContext.getTransientUserData();
+        jobStateData.setStories(stories);
+        jobContext.setTransientUserData(jobStateData);
     }
 }

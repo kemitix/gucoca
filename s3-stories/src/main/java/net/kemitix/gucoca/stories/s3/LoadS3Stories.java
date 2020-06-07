@@ -4,10 +4,13 @@ import com.amazonaws.services.s3.model.ListObjectsV2Request;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import lombok.extern.java.Log;
+import net.kemitix.gucoca.spi.GucocaConfig;
+import net.kemitix.gucoca.spi.JobStateData;
 import net.kemitix.gucoca.utils.ServiceSupplier;
 
 import javax.batch.api.BatchProperty;
 import javax.batch.api.chunk.AbstractItemReader;
+import javax.batch.runtime.context.JobContext;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.Iterator;
@@ -15,9 +18,9 @@ import java.util.Iterator;
 @Log
 public class LoadS3Stories extends AbstractItemReader {
 
+    @Inject JobContext jobContext;
+
     ServiceSupplier serviceSupplier = ServiceSupplier.create();
-    @Inject @BatchProperty(name = "bucketName") String bucketName;
-    @Inject @BatchProperty(name = "bucketPrefix") String bucketPrefix;
 
     private Iterator<S3ObjectSummary> objectSummaries;
     private String nextPageToken;
@@ -51,6 +54,10 @@ public class LoadS3Stories extends AbstractItemReader {
     }
 
     private ListObjectsV2Request request(String pageToken) {
+        GucocaConfig config = ((JobStateData) jobContext.getTransientUserData())
+                .getConfig();
+        String bucketName = config.getS3BucketName();
+        String bucketPrefix = config.getS3BucketPrefix();
         return new ListObjectsV2Request()
                 .withBucketName(bucketName)
                 .withPrefix(bucketPrefix)

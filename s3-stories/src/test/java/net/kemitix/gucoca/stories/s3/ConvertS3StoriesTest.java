@@ -3,6 +3,8 @@ package net.kemitix.gucoca.stories.s3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import net.kemitix.gucoca.spi.GucocaConfig;
+import net.kemitix.gucoca.spi.JobStateData;
 import net.kemitix.gucoca.spi.JsonObjectParser;
 import net.kemitix.gucoca.spi.Story;
 import net.kemitix.gucoca.utils.ServiceSupplier;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.batch.runtime.context.JobContext;
 import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
@@ -34,6 +37,7 @@ public class ConvertS3StoriesTest
     private final S3Object s3Object;
     private final S3ObjectInputStream objectContent;
     private final Story story;
+    private final JobContext jobContext;
 
     public ConvertS3StoriesTest(
             @Mock ServiceSupplier serviceSupplier,
@@ -41,7 +45,8 @@ public class ConvertS3StoriesTest
             @Mock AmazonS3Service amazonS3,
             @Mock S3Object s3Object,
             @Mock S3ObjectInputStream objectContent,
-            @Mock Story story
+            @Mock Story story,
+            @Mock JobContext jobContext
     ) {
         this.serviceSupplier = serviceSupplier;
         this.summary = summary;
@@ -49,12 +54,18 @@ public class ConvertS3StoriesTest
         this.s3Object = s3Object;
         this.objectContent = objectContent;
         this.story = story;
+        this.jobContext = jobContext;
     }
 
     @BeforeEach
     public void setUp() {
         processor.serviceSupplier = serviceSupplier;
-        processor.filename = "target";
+        processor.jobContext = jobContext;
+        JobStateData jobStateData = new JobStateData();
+        GucocaConfig config = new GucocaConfig();
+        config.setStoryFilename("target");
+        jobStateData.setConfig(config);
+        given(jobContext.getTransientUserData()).willReturn(jobStateData);
 
         given(serviceSupplier.findOne(AmazonS3Service.class))
                 .willReturn(amazonS3);
@@ -77,7 +88,7 @@ public class ConvertS3StoriesTest
     @DisplayName("Converts story files")
     public void convertsStoryFile() {
         //given
-        String key = bucketKey + "/" + processor.filename;
+        String key = bucketKey + "/target";
         given(summary.getBucketName()).willReturn(bucketName);
         given(summary.getKey()).willReturn(key);
         given(amazonS3.getObject(bucketName, key)).willReturn(s3Object);

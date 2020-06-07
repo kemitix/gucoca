@@ -1,0 +1,5 @@
+{
+  "s3BucketName": "my-bucket-name",
+  "s3BucketPrefix": "my-bucket-prefix",
+  "storyFilename": "my-story-filename"
+}

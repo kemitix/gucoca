@@ -3,6 +3,8 @@ package net.kemitix.gucoca.stories.s3;
 import com.amazonaws.services.s3.model.ListObjectsV2Request;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import net.kemitix.gucoca.spi.GucocaConfig;
+import net.kemitix.gucoca.spi.JobStateData;
 import net.kemitix.gucoca.utils.ServiceSupplier;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.batch.runtime.context.JobContext;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +43,7 @@ public class LoadS3StoriesTest
     private final S3ObjectSummary item3;
     private final List<S3ObjectSummary> page1Summaries;
     private final List<S3ObjectSummary> page2Summaries;
+    private final JobContext jobContext;
 
     public LoadS3StoriesTest(
             @Mock ServiceSupplier serviceSupplier,
@@ -48,7 +52,8 @@ public class LoadS3StoriesTest
             @Mock ListObjectsV2Result page2Results,
             @Mock S3ObjectSummary item1,
             @Mock S3ObjectSummary item2,
-            @Mock S3ObjectSummary item3
+            @Mock S3ObjectSummary item3,
+            @Mock JobContext jobContext
     ) {
         this.serviceSupplier = serviceSupplier;
         this.amazonS3 = amazonS3;
@@ -57,6 +62,7 @@ public class LoadS3StoriesTest
         this.item1 = item1;
         this.item2 = item2;
         this.item3 = item3;
+        this.jobContext = jobContext;
         page1Summaries = Arrays.asList(item1, item2);
         page2Summaries = Collections.singletonList(item3);
     }
@@ -64,8 +70,13 @@ public class LoadS3StoriesTest
     @BeforeEach
     public void setUp() {
         loadS3Stories.serviceSupplier = serviceSupplier;
-        loadS3Stories.bucketName = bucketName;
-        loadS3Stories.bucketPrefix = bucketPrefix;
+        loadS3Stories.jobContext = jobContext;
+        JobStateData jobStateData = new JobStateData();
+        GucocaConfig config = new GucocaConfig();
+        config.setS3BucketName(bucketName);
+        config.setS3BucketPrefix(bucketPrefix);
+        jobStateData.setConfig(config);
+        given(jobContext.getTransientUserData()).willReturn(jobStateData);
 
         given(serviceSupplier.findOne(AmazonS3Service.class))
                 .willReturn(amazonS3);

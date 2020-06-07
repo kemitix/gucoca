@@ -1,5 +1,7 @@
 package net.kemitix.gucoca.stories.s3;
 
+import net.kemitix.gucoca.spi.JobStateData;
+import net.kemitix.gucoca.spi.Story;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.batch.runtime.context.JobContext;
 import javax.batch.runtime.context.StepContext;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -94,11 +97,13 @@ public class WriteS3StoriesTest
     @DisplayName("On close promote data from step to job context")
     public void promoteDataToJobContextOnClose() {
         //given
-        Object value = new Object();
-        stepData.set(value);
+        jobData.set(new JobStateData());
+        List<Story> stories = new ArrayList<>();
+        stepData.set(stories);
         //when
         itemWriter.close();
         //then
-        assertThat(jobData).hasValue(value);
+        JobStateData jobStateData = ((JobStateData) jobData.get());
+        assertThat(jobStateData.getStories()).isSameAs(stories);
     }
 }

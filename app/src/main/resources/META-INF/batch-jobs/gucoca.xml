@@ -1,19 +1,13 @@
 <job id="gucoca" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <step id="read-config-file" next="load-stories">
+        <batchlet ref="loadConfigFile"/>
+    </step>
 <!--    <split id="gather">-->
 <!--        <flow id="gather-stories">-->
     <step id="load-stories">
         <chunk>
-            <reader ref="loadStories">
-                <properties>
-                    <property name="bucketName" value="www.cossmass.com"/>
-                    <property name="bucketPrefix" value="public"/>
-                </properties>
-            </reader>
-            <processor ref="convertStories">
-                <properties>
-                    <property name="filename" value="gucoca.json"/>
-                </properties>
-            </processor>
+            <reader ref="loadStories"/>
+            <processor ref="convertStories"/>
             <writer ref="writeStories"/>
         </chunk>
     </step>

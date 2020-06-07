@@ -14,3 +14,17 @@ Using Spring only within the main `gucoca` module.
 The `app` module defines the job in `META-INF/batch-jobs/gucoca.xml`.
 
 Other modules will implement components of the job and declare them within their `META-INF/batch.xml` file.
+
+## Configuration
+
+Requires a file `gucoca-config.json` to be in the working directory.
+
+e.g.:
+
+```json
+{
+  "s3BucketName": "www.cossmass.com",
+  "s3BucketPrefix": "public",
+  "storyFilename": "gucoca.json"
+}
+```

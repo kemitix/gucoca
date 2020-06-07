@@ -37,6 +37,10 @@
             <artifactId>gucoca-testing</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-utils</artifactId>
+        </dependency>
 
     </dependencies>
 
