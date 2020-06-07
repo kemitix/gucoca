@@ -11,10 +11,7 @@
     </parent>
 
     <artifactId>gucoca-s3-stories</artifactId>
-
-    <properties>
-        <pitest.skip>true</pitest.skip>
-    </properties>
+    <description>Load Stories from gucoca.json files in an S3 bucket.</description>
 
     <dependencies>
         <dependency>
@@ -30,6 +27,23 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${aws-java-sdk.version}</version>
+        </dependency>
+
+        <!-- gucoca -->
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-utils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-testing</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

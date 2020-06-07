@@ -2,7 +2,20 @@
 <!--    <split id="gather">-->
 <!--        <flow id="gather-stories">-->
     <step id="load-stories">
-        <batchlet ref="loadStories"/>
+        <chunk>
+            <reader ref="loadStories">
+                <properties>
+                    <property name="bucketName" value="www.cossmass.com"/>
+                    <property name="bucketPrefix" value="public"/>
+                </properties>
+            </reader>
+            <processor ref="convertStories">
+                <properties>
+                    <property name="filename" value="gucoca.json"/>
+                </properties>
+            </processor>
+            <writer ref="writeStories"/>
+        </chunk>
     </step>
 <!--        </flow>-->
 <!--        <flow id="gather-history">-->

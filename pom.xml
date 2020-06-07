@@ -8,6 +8,7 @@
         <module>parent</module>
         <module>testing</module>
         <module>runner</module>
+        <module>utils</module>
         <module>spi</module>
         <module>app</module>
         <module>s3-stories</module>
@@ -22,7 +23,7 @@
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.tarket>${java.version}</maven.compiler.tarket>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.install.skip>true</maven.install.skip>
         <maven-graph-plugin.version>1.45</maven-graph-plugin.version>
     </properties>

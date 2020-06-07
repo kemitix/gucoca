@@ -18,11 +18,13 @@
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.tarket>${java.version}</maven.compiler.tarket>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <tiles-maven-plugin.version>2.17</tiles-maven-plugin.version>
         <kemitix-maven-tiles.version>2.7.0</kemitix-maven-tiles.version>
         <kemitix-checkstyle.version>5.4.0</kemitix-checkstyle.version>
+
+        <aws-java-sdk.version>1.11.792</aws-java-sdk.version>
 
         <jakartaee-api.version>8.0.0</jakartaee-api.version>
 
@@ -51,6 +53,11 @@
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -86,6 +93,13 @@
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!-- amazonaws -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws-java-sdk.version}</version>
+            </dependency>
+
             <!-- testing -->
             <dependency>
                 <groupId>org.junit</groupId>
@@ -108,26 +122,53 @@
 
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>io.repaint.maven</groupId>
-                <artifactId>tiles-maven-plugin</artifactId>
-                <version>${tiles-maven-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <tiles>
-                        <tile>net.kemitix.tiles:maven-plugins:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.tiles:enforcer:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.tiles:compiler-jdk-11:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.tiles:pmd:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.tiles:testing:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.checkstyle:tile:${kemitix-checkstyle.version}</tile>
-                        <tile>net.kemitix.tiles:coverage:${kemitix-maven-tiles.version}</tile>
-                        <tile>net.kemitix.tiles:pitest:${kemitix-maven-tiles.version}</tile>
-                    </tiles>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.repaint.maven</groupId>
+                        <artifactId>tiles-maven-plugin</artifactId>
+                        <version>${tiles-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <tiles>
+                                <tile>net.kemitix.tiles:maven-plugins:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.tiles:enforcer:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.tiles:compiler-jdk-11:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.tiles:pmd:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.tiles:testing:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.checkstyle:tile:${kemitix-checkstyle.version}</tile>
+                                <tile>net.kemitix.tiles:coverage:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.tiles:pitest:${kemitix-maven-tiles.version}</tile>
+                            </tiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>quick</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.repaint.maven</groupId>
+                        <artifactId>tiles-maven-plugin</artifactId>
+                        <version>${tiles-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <tiles>
+                                <tile>net.kemitix.tiles:compiler-jdk-11:${kemitix-maven-tiles.version}</tile>
+                                <tile>net.kemitix.tiles:testing:${kemitix-maven-tiles.version}</tile>
+                            </tiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

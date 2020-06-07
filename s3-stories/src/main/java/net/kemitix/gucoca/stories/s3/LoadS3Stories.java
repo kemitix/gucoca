@@ -1,15 +1,59 @@
 package net.kemitix.gucoca.stories.s3;
 
-import javax.batch.api.AbstractBatchlet;
-import javax.batch.runtime.BatchStatus;
-import javax.inject.Named;
+import com.amazonaws.services.s3.model.ListObjectsV2Request;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+import lombok.extern.java.Log;
+import net.kemitix.gucoca.utils.ServiceSupplier;
 
-@Named
-public class LoadS3Stories extends AbstractBatchlet {
+import javax.batch.api.BatchProperty;
+import javax.batch.api.chunk.AbstractItemReader;
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.util.Iterator;
+
+@Log
+public class LoadS3Stories extends AbstractItemReader {
+
+    ServiceSupplier serviceSupplier = ServiceSupplier.create();
+    @Inject @BatchProperty(name = "bucketName") String bucketName;
+    @Inject @BatchProperty(name = "bucketPrefix") String bucketPrefix;
+
+    private Iterator<S3ObjectSummary> objectSummaries;
+    private String nextPageToken;
+    private AmazonS3Service amazonS3;
 
     @Override
-    public String process() throws Exception {
-        return BatchStatus.COMPLETED.toString();
+    public void open(Serializable checkpoint) {
+        amazonS3 = serviceSupplier.findOne(AmazonS3Service.class);
+        requestPage(null);
     }
 
+    @Override
+    public Object readItem() {
+        if (objectSummaries.hasNext()) {
+            return objectSummaries.next();
+        }
+        if (nextPageToken != null) {
+            requestPage(nextPageToken);
+            return readItem();
+        }
+        return null;
+    }
+
+    private void requestPage(String pageToken) {
+        log.info(String.format("requestPage(%s)", pageToken));
+        ListObjectsV2Result result = amazonS3.listObjectsV2(request(pageToken));
+        objectSummaries = result.getObjectSummaries().iterator();
+        nextPageToken = result.getNextContinuationToken();
+        log.info(String.format(
+                "Fetched %d items", result.getObjectSummaries().size()));
+    }
+
+    private ListObjectsV2Request request(String pageToken) {
+        return new ListObjectsV2Request()
+                .withBucketName(bucketName)
+                .withPrefix(bucketPrefix)
+                .withContinuationToken(pageToken);
+    }
 }

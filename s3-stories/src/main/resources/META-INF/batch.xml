@@ -1,3 +1,5 @@
 <batch-artifacts xmlns="http://xmlns.jcp.org/xml/ns/javaee">
     <ref id="loadStories" class="net.kemitix.gucoca.stories.s3.LoadS3Stories"/>
+    <ref id="convertStories" class="net.kemitix.gucoca.stories.s3.ConvertS3Stories"/>
+    <ref id="writeStories" class="net.kemitix.gucoca.stories.s3.WriteS3Stories"/>
 </batch-artifacts>

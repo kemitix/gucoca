@@ -1,10 +1,12 @@
 package net.kemitix.gucoca;
 
 import net.kemitix.gucoca.spi.GucocaService;
+import net.kemitix.gucoca.spi.JsonObjectParser;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.inject.Inject;
 import java.util.Arrays;

@@ -5,7 +5,7 @@ graphs:
 
 
 install:
-	mvn install
+	mvn install -P quick
 
 dev:
 	mvn -pl runner spring-boot:run ${RUN_PARAMS}
