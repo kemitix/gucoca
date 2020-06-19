@@ -24,7 +24,7 @@
         <kemitix-maven-tiles.version>2.7.0</kemitix-maven-tiles.version>
         <kemitix-checkstyle.version>5.4.0</kemitix-checkstyle.version>
 
-        <aws-java-sdk.version>1.11.805</aws-java-sdk.version>
+        <aws-java-sdk.version>1.11.806</aws-java-sdk.version>
 
         <jakartaee-api.version>8.0.0</jakartaee-api.version>
 
