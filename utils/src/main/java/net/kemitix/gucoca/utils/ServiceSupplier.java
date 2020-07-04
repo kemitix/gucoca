@@ -1,7 +1,6 @@
 package net.kemitix.gucoca.utils;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ServiceLoader;

@@ -47,16 +47,6 @@
             <!-- gucoca -->
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-app</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -68,21 +58,6 @@
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-spi</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-s3-stories</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-dynamodb</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-twitter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -97,6 +72,11 @@
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws-java-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-dynamodb</artifactId>
                 <version>${aws-java-sdk.version}</version>
             </dependency>
 
@@ -143,8 +123,8 @@
                                 <tile>net.kemitix.tiles:pmd:${kemitix-maven-tiles.version}</tile>
                                 <tile>net.kemitix.tiles:testing:${kemitix-maven-tiles.version}</tile>
                                 <tile>net.kemitix.checkstyle:tile:${kemitix-checkstyle.version}</tile>
-                                <tile>net.kemitix.tiles:coverage:${kemitix-maven-tiles.version}</tile>
-                                <tile>net.kemitix.tiles:pitest:${kemitix-maven-tiles.version}</tile>
+<!--                                <tile>net.kemitix.tiles:coverage:${kemitix-maven-tiles.version}</tile>-->
+<!--                                <tile>net.kemitix.tiles:pitest:${kemitix-maven-tiles.version}</tile>-->
                             </tiles>
                         </configuration>
                     </plugin>

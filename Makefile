@@ -1,20 +1,17 @@
-RUN_PARAMS=
-
 graphs:
 	mvn validate
 
+build:
+	mvn install -P quick -Dskip.tests -Dskip.its -Dpitest.skip
+
+run:
+	mvn camel:run -pl camel -Pquick
 
 install:
-	mvn install -P quick
+	mvn install
 
-dev:
-	mvn -pl runner spring-boot:run ${RUN_PARAMS}
-
-run: install
-	java ${RUN_PARAMS} -jar runner/target/gucoca-DEV-SNAPSHOT.jar
+test:
+	mvn verify
 
 clean:
 	mvn clean
-
-quick-build:
-	mvn clean install -DskipTests -DskipITs

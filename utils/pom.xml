@@ -3,6 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <properties>
+        <jackson-databind-aws-sdk-java.version>2.6.7.3
+        </jackson-databind-aws-sdk-java.version>
+    </properties>
     <parent>
         <groupId>net.kemitix.gucoca</groupId>
         <artifactId>gucoca-parent</artifactId>
@@ -16,8 +20,18 @@
         <!-- gucoca -->
         <dependency>
             <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
             <artifactId>gucoca-testing</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind-aws-sdk-java.version}</version>
         </dependency>
 
         <!-- lombok -->

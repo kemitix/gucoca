@@ -17,16 +17,27 @@
     </properties>
 
     <dependencies>
+        <!-- Jakarta EE -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>net.kemitix.gucoca</groupId>
+            <artifactId>gucoca-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
