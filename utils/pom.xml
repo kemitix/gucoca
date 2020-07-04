@@ -4,8 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <properties>
-        <jackson-databind-aws-sdk-java.version>2.6.7.3
-        </jackson-databind-aws-sdk-java.version>
+        <jackson-databind-aws-sdk-java.version>2.9.10.5</jackson-databind-aws-sdk-java.version>
     </properties>
     <parent>
         <groupId>net.kemitix.gucoca</groupId>
