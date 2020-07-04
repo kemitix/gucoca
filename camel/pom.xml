@@ -21,7 +21,7 @@
     <log4j2.version>2.13.3</log4j2.version>
     <cdi-api.version>2.0</cdi-api.version>
     <camel.version>3.4.0</camel.version>
-    <jackson-databind.version>2.9.9.1</jackson-databind.version>
+    <jackson-databind.version>2.9.10.5</jackson-databind.version>
     <aws-java-sdk.version>1.11.811</aws-java-sdk.version>
 
     <pitest.skip>true</pitest.skip>
