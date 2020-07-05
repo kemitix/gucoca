@@ -6,12 +6,12 @@
   <parent>
     <groupId>net.kemitix.gucoca</groupId>
     <artifactId>gucoca-parent</artifactId>
-    <version>DEV-SNAPSHOT</version>
+    <version>1.0.0</version>
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
   <artifactId>gucoca-camel</artifactId>
-  <version>DEV-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>gucoca-camel</name>
 
