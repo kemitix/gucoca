@@ -70,8 +70,8 @@
 
             <!-- amazonaws -->
             <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-s3</artifactId>
+                <groupId>net.kemitix.aws</groupId>
+                <artifactId>kemitix-aws-java-sdk-s3-wrapper</artifactId>
                 <version>${aws-java-sdk.version}</version>
             </dependency>
             <dependency>
