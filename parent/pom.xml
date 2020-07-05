@@ -24,7 +24,8 @@
         <kemitix-maven-tiles.version>2.7.0</kemitix-maven-tiles.version>
         <kemitix-checkstyle.version>5.4.0</kemitix-checkstyle.version>
 
-        <aws-java-sdk.version>1.11.816</aws-java-sdk.version>
+        <aws-java-sdk-s3.version>1.11.816</aws-java-sdk-s3.version>
+        <aws-java-sdk-dynamodb.version>1.11.816</aws-java-sdk-dynamodb.version>
 
         <jakartaee-api.version>8.0.0</jakartaee-api.version>
 
@@ -72,12 +73,12 @@
             <dependency>
                 <groupId>net.kemitix.aws</groupId>
                 <artifactId>kemitix-aws-java-sdk-s3-wrapper</artifactId>
-                <version>${aws-java-sdk.version}</version>
+                <version>${aws-java-sdk-s3.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-dynamodb</artifactId>
-                <version>${aws-java-sdk.version}</version>
+                <groupId>net.kemitix.aws</groupId>
+                <artifactId>kemitix-aws-java-sdk-dynamodb-wrapper</artifactId>
+                <version>${aws-java-sdk-dynamodb.version}</version>
             </dependency>
 
             <!-- testing -->

@@ -117,7 +117,6 @@
     <dependency>
       <groupId>net.kemitix.aws</groupId>
       <artifactId>kemitix-aws-java-sdk-s3-wrapper</artifactId>
-      <version>${aws-java-sdk.version}</version>
     </dependency>
 
     <!-- Amazon DynamoDB -->
@@ -126,9 +125,8 @@
       <artifactId>camel-aws-ddb</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-dynamodb</artifactId>
-      <version>${aws-java-sdk.version}</version>
+      <groupId>net.kemitix.aws</groupId>
+      <artifactId>kemitix-aws-java-sdk-dynamodb-wrapper</artifactId>
     </dependency>
 
     <!-- Twitter -->
