@@ -124,6 +124,15 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>io.hawt</groupId>
+      <artifactId>hawtio-embedded</artifactId>
+      <version>2.10.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-management</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
@@ -168,6 +177,11 @@
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.hawt</groupId>
+        <artifactId>hawtio-maven-plugin</artifactId>
+        <version>2.10.0</version>
       </plugin>
     </plugins>
   </build>
