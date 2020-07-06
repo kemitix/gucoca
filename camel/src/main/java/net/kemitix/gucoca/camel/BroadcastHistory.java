@@ -3,6 +3,7 @@ package net.kemitix.gucoca.camel;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
+import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
 import net.kemitix.gucoca.spi.Story;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -25,7 +26,7 @@ class BroadcastHistory {
             broadcastDate.setN(Long.toString(Instant.now().getEpochSecond()));
             item.put("broadcast-date", broadcastDate);
 
-            Story story = in.getHeader(Headers.STORY_SELECTED, Story.class);
+            Story story = in.getHeader(TwitterStoryPublisher.STORY_HEADER, Story.class);
             String slug = story.slug();
             item.put("slug",  new AttributeValue(slug));
 

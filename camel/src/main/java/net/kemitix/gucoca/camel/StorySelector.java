@@ -1,5 +1,6 @@
 package net.kemitix.gucoca.camel;
 
+import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
 import net.kemitix.gucoca.spi.Story;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -21,7 +22,7 @@ class StorySelector {
                             List.class);
             Story story = stories.get(
                     random.nextInt(stories.size()));
-            in.setHeader(Headers.STORY_SELECTED, story);
+            in.setHeader(TwitterStoryPublisher.STORY_HEADER, story);
         };
     }
 

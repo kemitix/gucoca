@@ -1,5 +1,6 @@
 package net.kemitix.gucoca.camel;
 
+import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
 import net.kemitix.gucoca.spi.GucocaConfig;
 import net.kemitix.gucoca.spi.Story;
 import org.apache.camel.builder.RouteBuilder;
@@ -11,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 public class GucocaRoutes extends RouteBuilder {
 
+    public static final String DIRECT_GUCOCA_HISTORY_ADD = "direct:Gucoca.History.Add";
     @Inject GucocaConfig config;
     @Inject AwsOperations awsOperations;
     @Inject PostingFrequency postingFrequency;
@@ -20,14 +22,12 @@ public class GucocaRoutes extends RouteBuilder {
     @Inject HistoryFilter historyFilter;
     @Inject StoryAggregator storyAggregator;
     @Inject StorySelector storySelector;
-    @Inject TwitterPublisher twitterPublisher;
 
     @Override
     public void configure() {
         long expiryDate = Instant.now()
                 .minus(config.getNoRepeatDays(), ChronoUnit.DAYS)
                 .getEpochSecond();
-        twitterPublisher.prepareTimelineComponent(getContext());
 
         from(postingFrequency.startTimer())
                 .routeId("main")
@@ -71,20 +71,12 @@ public class GucocaRoutes extends RouteBuilder {
                 .process(storyCards.setS3ObjectInputStreamHeader())
                 .log("Story selected ${header[Gucoca.Story.Selected].slug}")
 
-                // post to twitter
-                .process(twitterPublisher.preparePost())
-                .choice()
-                .when(exchange -> config.isTwitterEnabled())
-                .to("twitter-timeline:USER")
-                .otherwise()
-                .log("Not posting to twitter")
-                .end()
+                .to(TwitterStoryPublisher.ENDPOINT);
 
-                // persist to history
+        from(DIRECT_GUCOCA_HISTORY_ADD)
                 .process(broadcastHistory.setStorySlug())
                 .to(awsOperations.awsDDBPut())
-                .log("Finished")
-        ;
+                .log("Finished");
 
     }
 
