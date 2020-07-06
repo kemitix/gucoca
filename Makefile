@@ -16,3 +16,8 @@ test:
 
 clean:
 	mvn clean
+
+wipe-history:
+	for KEY in $(aws dynamodb scan --table-name GucocaBroadcastHistory --output text --query "Items[].BroadcastDate.N");do\
+		aws dynamodb delete-item --table-name GucocaBroadcastHistory --key '{"BroadcastDate":{"N":"$KEY"}}';\
+	done

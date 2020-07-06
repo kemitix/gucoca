@@ -23,6 +23,9 @@ class BroadcastHistoryRoutes
     extends RouteBuilder
         implements BroadcastHistory{
 
+    private static final String FIELD_SLUG = "Slug";
+    private static final String FIELD_BROADCAST_DATE = "BroadcastDate";
+
     @Inject GucocaConfig config;
     @Inject AwsDynamoDB awsDynamoDB;
 
@@ -56,10 +59,10 @@ class BroadcastHistoryRoutes
 
             AttributeValue broadcastDate = new AttributeValue();
             broadcastDate.setN(Long.toString(Instant.now().getEpochSecond()));
-            item.put("broadcast-date", broadcastDate);
+            item.put(FIELD_BROADCAST_DATE, broadcastDate);
 
             String slug = in.getBody(String.class);
-            item.put("slug",  new AttributeValue(slug));
+            item.put(FIELD_SLUG,  new AttributeValue(slug));
 
             in.setHeader(DdbConstants.ITEM, item);
         };
@@ -73,7 +76,7 @@ class BroadcastHistoryRoutes
                     .withAttributeValueList(
                             new AttributeValue().withN("" + expiryDate));
             Map<String, Condition> conditions = new HashMap<>();
-            conditions.put("broadcast-date", condition);
+            conditions.put(FIELD_BROADCAST_DATE, condition);
             in.setHeader(DdbConstants.SCAN_FILTER, conditions);
         };
     }
@@ -87,7 +90,7 @@ class BroadcastHistoryRoutes
                             in.getHeader(DdbConstants.ITEMS, List.class))
                             .stream()
                             .map(map ->
-                                    map.get("slug")
+                                    map.get(FIELD_SLUG)
                                             .getS())
                             .collect(Collectors.toList());
             in.setHeader(Stories.PUBLISHED, slugs);
