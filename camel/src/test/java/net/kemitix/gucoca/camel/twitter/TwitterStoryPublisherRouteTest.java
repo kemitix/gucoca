@@ -1,5 +1,6 @@
 package net.kemitix.gucoca.camel.twitter;
 
+import net.kemitix.gucoca.camel.history.BroadcastHistory;
 import net.kemitix.gucoca.spi.GucocaConfig;
 import net.kemitix.gucoca.spi.Story;
 import org.apache.camel.Exchange;
@@ -17,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import twitter4j.StatusUpdate;
 
 import java.io.InputStream;
-import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -53,12 +53,12 @@ class TwitterStoryPublisherRouteTest
         story.setBlurb(Collections.singletonList("blurb"));
 
         Map<String, Object> headers = new HashMap<>();
-        headers.put(TwitterStoryPublisher.STORY_HEADER, story);
-        headers.put(TwitterStoryPublisher.STORYCARD_HEADER, inputStream);
+        headers.put(TwitterStoryPublisher.STORY, story);
+        headers.put(TwitterStoryPublisher.STORYCARD, inputStream);
         Object body = null; // not used
 
         //when
-        template.sendBodyAndHeaders(TwitterStoryPublisher.ENDPOINT, body, headers);
+        template.sendBodyAndHeaders(TwitterStoryPublisher.PUBLISH, body, headers);
 
         //then
         assertMockEndpointsSatisfied();
@@ -88,12 +88,12 @@ class TwitterStoryPublisherRouteTest
         story.setBlurb(Collections.singletonList("blurb"));
 
         Map<String, Object> headers = new HashMap<>();
-        headers.put(TwitterStoryPublisher.STORY_HEADER, story);
-        headers.put(TwitterStoryPublisher.STORYCARD_HEADER, inputStream);
+        headers.put(TwitterStoryPublisher.STORY, story);
+        headers.put(TwitterStoryPublisher.STORYCARD, inputStream);
         Object body = null; // not used
 
         //when
-        template.sendBodyAndHeaders(TwitterStoryPublisher.ENDPOINT, body, headers);
+        template.sendBodyAndHeaders(TwitterStoryPublisher.PUBLISH, body, headers);
 
         //then
         assertMockEndpointsSatisfied(2, TimeUnit.SECONDS);
@@ -118,12 +118,12 @@ class TwitterStoryPublisherRouteTest
         story.setBlurb(Collections.singletonList("blurb blurb blurb blurb blurb blurb blurb blurb"));
 
         Map<String, Object> headers = new HashMap<>();
-        headers.put(TwitterStoryPublisher.STORY_HEADER, story);
-        headers.put(TwitterStoryPublisher.STORYCARD_HEADER, inputStream);
+        headers.put(TwitterStoryPublisher.STORY, story);
+        headers.put(TwitterStoryPublisher.STORYCARD, inputStream);
         Object body = null; // not used
 
         //when
-        template.sendBodyAndHeaders(TwitterStoryPublisher.ENDPOINT, body, headers);
+        template.sendBodyAndHeaders(TwitterStoryPublisher.PUBLISH, body, headers);
 
         //then
         assertMockEndpointsSatisfied();
@@ -148,7 +148,7 @@ class TwitterStoryPublisherRouteTest
         routes[1] = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct://Gucoca.History.Add").to("mock:history");
+                from(BroadcastHistory.UPDATE_ENDPOINT).to("mock:history");
             }
         };
         return routes;

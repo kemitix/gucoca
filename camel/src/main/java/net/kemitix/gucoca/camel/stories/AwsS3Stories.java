@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca.camel.stories;
 
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;

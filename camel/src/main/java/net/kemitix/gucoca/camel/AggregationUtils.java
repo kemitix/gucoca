@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 
 import static org.apache.camel.builder.Builder.constant;
 
-interface AggregationUtils {
+public interface AggregationUtils {
 
     static <T> AbstractListAggregationStrategy<T> listFromBodies(
             Class<T> aClass

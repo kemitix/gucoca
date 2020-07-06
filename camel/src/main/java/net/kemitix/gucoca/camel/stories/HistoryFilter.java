@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca.camel.stories;
 
 import net.kemitix.gucoca.spi.Story;
 import org.apache.camel.Message;
@@ -12,7 +12,8 @@ class HistoryFilter {
     Predicate dropStoriesInHistory() {
         return exchange -> {
             Message in = exchange.getIn();
-            List<String> listHeader = in.getHeader(Headers.BROADCAST_LIST, List.class);
+            List<String> listHeader =
+                    in.getHeader(Stories.PUBLISHED, List.class);
             Story story = in.getBody(Story.class);
             String slug = story.slug();
             return !listHeader.contains(slug);

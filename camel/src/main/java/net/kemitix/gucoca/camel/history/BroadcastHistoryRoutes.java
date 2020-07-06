@@ -1,21 +1,53 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca.camel.history;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
-import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
-import net.kemitix.gucoca.spi.Story;
+import net.kemitix.gucoca.camel.aws.AwsDynamoDB;
+import net.kemitix.gucoca.camel.stories.Stories;
+import net.kemitix.gucoca.spi.GucocaConfig;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ddb.DdbConstants;
 
+import javax.inject.Inject;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class BroadcastHistory {
+class BroadcastHistoryRoutes
+    extends RouteBuilder
+        implements BroadcastHistory{
+
+    @Inject GucocaConfig config;
+    @Inject AwsDynamoDB awsDynamoDB;
+
+    @Override
+    public void configure() {
+        long expiryDate = Instant.now()
+                .minus(config.getNoRepeatDays(), ChronoUnit.DAYS)
+                .getEpochSecond();
+
+        from(BroadcastHistory.LOAD_ENDPOINT)
+                .routeId("load-history")
+                // load history
+                .process(setCriteria(expiryDate))
+                .to(awsDynamoDB.scan())
+                .log("Loaded ${header.CamelAwsDdbCount} history items")
+                .process(putSlugsInHeader())
+                .to(Stories.LOAD_STORIES);
+
+
+        from(UPDATE_ENDPOINT)
+                .routeId("add-to-history")
+                .process(setStorySlug())
+                .to(awsDynamoDB.put())
+                .log("Finished");
+    }
 
     Processor setStorySlug() {
         return exchange -> {
@@ -26,8 +58,7 @@ class BroadcastHistory {
             broadcastDate.setN(Long.toString(Instant.now().getEpochSecond()));
             item.put("broadcast-date", broadcastDate);
 
-            Story story = in.getHeader(TwitterStoryPublisher.STORY_HEADER, Story.class);
-            String slug = story.slug();
+            String slug = in.getBody(String.class);
             item.put("slug",  new AttributeValue(slug));
 
             in.setHeader(DdbConstants.ITEM, item);
@@ -59,8 +90,7 @@ class BroadcastHistory {
                                     map.get("slug")
                                             .getS())
                             .collect(Collectors.toList());
-            in.setHeader(Headers.BROADCAST_LIST, slugs);
+            in.setHeader(Stories.PUBLISHED, slugs);
         };
     }
-
 }

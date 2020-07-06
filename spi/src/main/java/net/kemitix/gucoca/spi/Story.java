@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.InputStream;
 import java.util.List;
 
 @ToString
@@ -16,6 +17,7 @@ public class Story {
     private List<String> blurb;
     private String url;
     private String key;
+    private InputStream storyCardInputStream;
 
     public String slug() {
         String[] split = url.split("/");

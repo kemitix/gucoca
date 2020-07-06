@@ -1,5 +1,6 @@
 package net.kemitix.gucoca.camel.twitter;
 
+import net.kemitix.gucoca.camel.history.BroadcastHistory;
 import net.kemitix.gucoca.spi.GucocaConfig;
 import net.kemitix.gucoca.spi.Story;
 import org.apache.camel.CamelContext;
@@ -15,13 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static net.kemitix.gucoca.camel.GucocaRoutes.DIRECT_GUCOCA_HISTORY_ADD;
-
 /**
  * Posts the story to Twitter.
  *
- * <p>Takes the {@link Story} from the {@link #STORY_HEADER} together with an
- * image read from an {@link InputStream} in the {@link #STORYCARD_HEADER}.</p>
+ * <p>Takes the {@link Story} from the {@link #STORY} together with an
+ * image read from an {@link InputStream} in the {@link #STORYCARD}.</p>
  */
 class TwitterStoryPublisherRoute
     extends RouteBuilder
@@ -35,7 +34,8 @@ class TwitterStoryPublisherRoute
     @Override
     public void configure() {
         prepareTimelineComponent(getContext());
-        from(TwitterStoryPublisher.ENDPOINT)
+        from(PUBLISH)
+                .routeId("twitter-story-publisher")
                 .process(preparePost())
                 .choice()
                 .when(exchange -> config.isTwitterEnabled())
@@ -43,7 +43,8 @@ class TwitterStoryPublisherRoute
                 .otherwise()
                 .log("Not posting to twitter")
                 .end()
-                .to(DIRECT_GUCOCA_HISTORY_ADD);
+                .transform(simple("${header.["+ STORY +"].slug}"))
+                .to(BroadcastHistory.UPDATE_ENDPOINT);
     }
 
     void prepareTimelineComponent(CamelContext camelContext) {
@@ -59,7 +60,7 @@ class TwitterStoryPublisherRoute
     Processor preparePost() {
         return exchange -> {
             Message in = exchange.getIn();
-            Story story = in.getHeader(STORY_HEADER, Story.class);
+            Story story = in.getHeader(STORY, Story.class);
             String title = story.getTitle();
             String author = story.getAuthor();
             List<String> blurbs = story.getBlurb();
@@ -74,7 +75,7 @@ class TwitterStoryPublisherRoute
                     sb.append(String.format(" #%s", hashtag));
                 }
             });
-            InputStream cardStream = in.getHeader(STORYCARD_HEADER, InputStream.class);
+            InputStream cardStream = in.getHeader(STORYCARD, InputStream.class);
             StatusUpdate statusUpdate =
                     new StatusUpdate(sb.toString())
                             .media("story-card", cardStream);

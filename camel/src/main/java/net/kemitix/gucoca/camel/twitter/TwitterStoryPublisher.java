@@ -2,9 +2,9 @@ package net.kemitix.gucoca.camel.twitter;
 
 public interface TwitterStoryPublisher {
 
-    String ENDPOINT = "direct:Gucoca.Twitter.Story.Publish";
+    String PUBLISH = "direct:Gucoca.TwitterStoryPublish.Publish";
 
-    String STORY_HEADER = "Gucoca.Twitter.Story";
-    String STORYCARD_HEADER = "Gucoca.Twitter.StoryCard";
+    String STORY = "Gucoca.Twitter.Story";
+    String STORYCARD = "Gucoca.Twitter.StoryCard";
 
 }

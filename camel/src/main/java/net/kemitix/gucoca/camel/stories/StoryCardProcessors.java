@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca.camel.stories;
 
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -14,13 +14,13 @@ class StoryCardProcessors {
 
     /**
      * Puts the story card's S3 KEY, from the {@link Story} in the
-     * {@link TwitterStoryPublisher#STORY_HEADER} header into the {@link S3Constants#KEY}
+     * {@link TwitterStoryPublisher#STORY} header into the {@link S3Constants#KEY}
      * header to allow it be be downloaded.
      */
     Processor setS3GetObjectKeyHeader() {
         return exchange -> {
             Message in = exchange.getIn();
-            Story story = in.getHeader(TwitterStoryPublisher.STORY_HEADER, Story.class);
+            Story story = in.getHeader(TwitterStoryPublisher.STORY, Story.class);
             String storyKey = story.getKey();
             String cardKey = Paths.get(storyKey).getParent()
                     .resolve("gucoca.webp").toString();
@@ -30,15 +30,17 @@ class StoryCardProcessors {
 
     /**
      * Puts the {@link S3ObjectInputStream} of the {@link S3Object} in the BODY
-     * in the {@link TwitterStoryPublisher#STORYCARD_HEADER} header.
+     * in the {@link TwitterStoryPublisher#STORYCARD} header.
      */
-    Processor setS3ObjectInputStreamHeader() {
+    Processor addToStory() {
         return exchange -> {
             Message in = exchange.getIn();
             S3ObjectInputStream objectContent =
                     in.getBody(S3Object.class)
                             .getObjectContent();
-            in.setHeader(TwitterStoryPublisher.STORYCARD_HEADER, objectContent);
+            Story story = in.getHeader(TwitterStoryPublisher.STORY, Story.class);
+            story.setStoryCardInputStream(objectContent);
+            in.setBody(story, Story.class);
         };
     }
 

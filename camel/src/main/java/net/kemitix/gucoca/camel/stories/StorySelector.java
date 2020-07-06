@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca.camel.stories;
 
 import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
 import net.kemitix.gucoca.spi.Story;
@@ -18,11 +18,11 @@ class StorySelector {
             Message in = exchange.getIn();
             List<Story> stories =
                     in.getHeader(
-                            Headers.STORIES_PUBLISHABLE,
+                            Stories.PUBLISHABLE,
                             List.class);
             Story story = stories.get(
                     random.nextInt(stories.size()));
-            in.setHeader(TwitterStoryPublisher.STORY_HEADER, story);
+            in.setHeader(TwitterStoryPublisher.STORY, story);
         };
     }
 
