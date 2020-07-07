@@ -26,6 +26,7 @@
 
         <aws-java-sdk-s3.version>1.11.816</aws-java-sdk-s3.version>
         <aws-java-sdk-dynamodb.version>1.11.816</aws-java-sdk-dynamodb.version>
+        <aws-java-sdk-ses.version>1.11.816</aws-java-sdk-ses.version>
 
         <jakartaee-api.version>8.0.0</jakartaee-api.version>
 
@@ -116,6 +117,11 @@
                 <groupId>net.kemitix.aws</groupId>
                 <artifactId>kemitix-aws-java-sdk-dynamodb-wrapper</artifactId>
                 <version>${aws-java-sdk-dynamodb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.aws</groupId>
+                <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
+                <version>${aws-java-sdk-ses.version}</version>
             </dependency>
 
             <!-- testing -->

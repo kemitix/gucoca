@@ -18,9 +18,12 @@ public class GucocaConfig {
     private String storyFilename;
     private String dDbTableName;
     private boolean twitterEnabled;
+    private long twitterDelayMillis;
     private String twitterApiKey;
     private String twitterApiSecretKey;
     private String twitterAccessToken;
     private String twitterAccessTokenSecret;
     private int noRepeatDays;
+    private String notificationRecipient;
+    private String emailSender;
 }

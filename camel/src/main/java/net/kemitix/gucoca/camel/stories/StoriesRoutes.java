@@ -2,9 +2,12 @@ package net.kemitix.gucoca.camel.stories;
 
 import net.kemitix.gucoca.camel.AggregationUtils;
 import net.kemitix.gucoca.camel.aws.AwsS3;
+import net.kemitix.gucoca.camel.email.SendEmail;
 import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
 import net.kemitix.gucoca.spi.GucocaConfig;
 import net.kemitix.gucoca.spi.Story;
+import org.apache.camel.Message;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.aggregate.DefaultAggregateController;
 
@@ -21,6 +24,7 @@ class StoriesRoutes
     @Inject StoryAggregator storyAggregator;
     @Inject StorySelector storySelector;
     @Inject StoryCardProcessors storyCards;
+    @Inject SendEmail sendEmail;
 
     @Override
     public void configure() throws Exception {
@@ -60,6 +64,29 @@ class StoriesRoutes
                 .to(awsS3.getObjects())
                 .process(storyCards.addToStory())
                 .log("Story selected ${header.[" + TwitterStoryPublisher.STORY + "].slug}")
+                .process(prepareNotificationEmail())
+                .to(sendEmail.send("story-selector"))
+                .delay(config.getTwitterDelayMillis())
                 .to(TwitterStoryPublisher.PUBLISH);
+    }
+
+    private Processor prepareNotificationEmail() {
+        return exchange -> {
+            Message in = exchange.getIn();
+            Story story = in.getBody(Story.class);
+            sendEmail
+                    .message(in)
+                    .from(config.getEmailSender())
+                    .to(config.getNotificationRecipient())
+                    .subject(String.format("Story Selected: %s by %s",
+                            story.getTitle(),
+                            story.getAuthor()
+                    ))
+                    .html()
+                    .body(String.format("<h1>Selected: %s by %s</h1>" +
+                                    "This story has been selected to be promoted " +
+                                    "on Twitter.",
+                            story.getTitle(), story.getAuthor()));
+        };
     }
 }
