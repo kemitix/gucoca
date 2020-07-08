@@ -2,6 +2,7 @@ package net.kemitix.gucoca.camel;
 
 import lombok.extern.log4j.Log4j2;
 import net.kemitix.gucoca.spi.GucocaConfig;
+import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 
 import javax.inject.Inject;
@@ -24,15 +25,11 @@ class PostingFrequency {
         return "timer:start-load-history?period=" + startPeriodMilliseconds;
     }
 
-    Processor shouldIRun() {
+    Predicate shouldIRun() {
         return exchange -> {
             int roll = random.nextInt(100);
             log.info("Rolled " + roll + " @ " + Instant.now().toString());
-            if (roll <= config.getPercentChanceToPost()) {
-                log.info("Posting a Story!");
-            } else {
-                exchange.setRouteStop(true);
-            }
+            return roll <= config.getPercentChanceToPost();
         };
     }
 }

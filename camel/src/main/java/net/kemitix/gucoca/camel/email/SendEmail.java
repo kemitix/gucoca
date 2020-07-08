@@ -8,6 +8,4 @@ public interface SendEmail {
 
     SendEmailMessage message(Message in);
 
-    String send(String sender);
-
 }

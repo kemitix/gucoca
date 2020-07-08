@@ -47,7 +47,7 @@ class TwitterStoryPublisherRoute
                 .to(BroadcastHistory.UPDATE_ENDPOINT);
     }
 
-    void prepareTimelineComponent(CamelContext camelContext) {
+    private void prepareTimelineComponent(CamelContext camelContext) {
         TwitterTimelineComponent component =
                 camelContext.getComponent("twitter-timeline",
                         TwitterTimelineComponent.class);
@@ -57,7 +57,7 @@ class TwitterStoryPublisherRoute
         component.setConsumerSecret(config.getTwitterApiSecretKey());
     }
 
-    Processor preparePost() {
+    private Processor preparePost() {
         return exchange -> {
             Message in = exchange.getIn();
             Story story = in.getHeader(STORY, Story.class);
@@ -75,7 +75,7 @@ class TwitterStoryPublisherRoute
                     sb.append(String.format(" #%s", hashtag));
                 }
             });
-            InputStream cardStream = in.getHeader(STORYCARD, InputStream.class);
+            InputStream cardStream = story.getStoryCardInputStream();
             StatusUpdate statusUpdate =
                     new StatusUpdate(sb.toString())
                             .media("story-card", cardStream);

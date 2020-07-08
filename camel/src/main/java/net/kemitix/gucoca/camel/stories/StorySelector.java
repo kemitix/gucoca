@@ -1,29 +1,27 @@
 package net.kemitix.gucoca.camel.stories;
 
-import net.kemitix.gucoca.camel.twitter.TwitterStoryPublisher;
 import net.kemitix.gucoca.spi.Story;
-import org.apache.camel.Message;
-import org.apache.camel.Processor;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-class StorySelector {
+public class StorySelector {
 
     static Random random = new Random();
 
-    @SuppressWarnings("unchecked")
-    Processor selectAStory() {
-        return exchange -> {
-            Message in = exchange.getIn();
-            List<Story> stories =
-                    in.getHeader(
-                            Stories.PUBLISHABLE,
-                            List.class);
-            Story story = stories.get(
-                    random.nextInt(stories.size()));
-            in.setHeader(TwitterStoryPublisher.STORY, story);
-        };
+    public Story select(StoryContext storyContext) {
+        List<Story> stories =
+                storyContext
+                        .getStories()
+                        .stream()
+                        .filter(story ->
+                                !storyContext
+                                        .getHistory()
+                                        .contains(story.slug()))
+                        .collect(Collectors.toList());
+        return stories.get(
+                random.nextInt(stories.size()));
     }
 
 }

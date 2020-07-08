@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import net.kemitix.gucoca.camel.aws.AwsDynamoDB;
-import net.kemitix.gucoca.camel.stories.Stories;
+import net.kemitix.gucoca.camel.stories.StoryContext;
 import net.kemitix.gucoca.spi.GucocaConfig;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -40,19 +40,19 @@ class BroadcastHistoryRoutes
                 // load history
                 .process(setCriteria(expiryDate))
                 .to(awsDynamoDB.scan())
-                .log("Loaded ${header.CamelAwsDdbCount} history items")
-                .process(putSlugsInHeader())
-                .to(Stories.LOAD_STORIES);
-
+                .process(putSlugsInContext())
+                .log("Loaded History: ${body.history.size}")
+        ;
 
         from(UPDATE_ENDPOINT)
                 .routeId("add-to-history")
                 .process(setStorySlug())
                 .to(awsDynamoDB.put())
-                .log("Finished");
+                .log("Finished")
+        ;
     }
 
-    Processor setStorySlug() {
+    private Processor setStorySlug() {
         return exchange -> {
             Message in = exchange.getIn();
             Map<String, AttributeValue> item = new HashMap<>();
@@ -68,7 +68,7 @@ class BroadcastHistoryRoutes
         };
     }
 
-    Processor setCriteria(long expiryDate) {
+    private Processor setCriteria(long expiryDate) {
         return exchange -> {
             Message in = exchange.getIn();
             Condition condition = new Condition()
@@ -82,7 +82,7 @@ class BroadcastHistoryRoutes
     }
 
     @SuppressWarnings("unchecked")
-    Processor putSlugsInHeader() {
+    private Processor putSlugsInContext() {
         return exchange -> {
             Message in = exchange.getIn();
             List<String> slugs =
@@ -93,7 +93,9 @@ class BroadcastHistoryRoutes
                                     map.get(FIELD_SLUG)
                                             .getS())
                             .collect(Collectors.toList());
-            in.setHeader(Stories.PUBLISHED, slugs);
+            in.setBody(
+                    in.getBody(StoryContext.class)
+                            .withHistory(slugs));
         };
     }
 }

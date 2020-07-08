@@ -5,6 +5,5 @@ public interface TwitterStoryPublisher {
     String PUBLISH = "direct:Gucoca.TwitterStoryPublish.Publish";
 
     String STORY = "Gucoca.Twitter.Story";
-    String STORYCARD = "Gucoca.Twitter.StoryCard";
 
 }

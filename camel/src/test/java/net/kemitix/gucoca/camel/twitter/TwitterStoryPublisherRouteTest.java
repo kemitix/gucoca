@@ -51,10 +51,10 @@ class TwitterStoryPublisherRouteTest
         story.setAuthor("author");
         story.setUrl("URL");
         story.setBlurb(Collections.singletonList("blurb"));
+        story.setStoryCardInputStream(inputStream);
 
         Map<String, Object> headers = new HashMap<>();
         headers.put(TwitterStoryPublisher.STORY, story);
-        headers.put(TwitterStoryPublisher.STORYCARD, inputStream);
         Object body = null; // not used
 
         //when
@@ -86,10 +86,10 @@ class TwitterStoryPublisherRouteTest
         story.setAuthor("author");
         story.setUrl("URL");
         story.setBlurb(Collections.singletonList("blurb"));
+        story.setStoryCardInputStream(inputStream);
 
         Map<String, Object> headers = new HashMap<>();
         headers.put(TwitterStoryPublisher.STORY, story);
-        headers.put(TwitterStoryPublisher.STORYCARD, inputStream);
         Object body = null; // not used
 
         //when
@@ -116,10 +116,10 @@ class TwitterStoryPublisherRouteTest
         story.setAuthor("author author author author author author author author author");
         story.setUrl("URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL URL");
         story.setBlurb(Collections.singletonList("blurb blurb blurb blurb blurb blurb blurb blurb"));
+        story.setStoryCardInputStream(inputStream);
 
         Map<String, Object> headers = new HashMap<>();
         headers.put(TwitterStoryPublisher.STORY, story);
-        headers.put(TwitterStoryPublisher.STORYCARD, inputStream);
         Object body = null; // not used
 
         //when
@@ -137,7 +137,7 @@ class TwitterStoryPublisherRouteTest
     }
 
     @Override
-    protected RoutesBuilder[] createRouteBuilders() throws Exception {
+    protected RoutesBuilder[] createRouteBuilders() {
         RouteBuilder[] routes = new RouteBuilder[2];
         TwitterStoryPublisherRoute twitterRoute = new TwitterStoryPublisherRoute();
         twitterRoute.config = config;

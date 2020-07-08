@@ -27,9 +27,4 @@ class SendEmailRoute
         return new SendEmailMessageImpl(in);
     }
 
-    @Override
-    public String send(String sender) {
-        return awsSES.send(sender);
-    }
-
 }
