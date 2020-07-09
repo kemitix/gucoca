@@ -7,24 +7,30 @@ Posts stories from the archives at random to Twitter for Cossmass Infinities
 
 ## Organisation
 
-Using JSR 352, with Spring Boot as the supporting framework.
-
-Using Spring only within the main `gucoca` module.
-
-The `app` module defines the job in `META-INF/batch-jobs/gucoca.xml`.
-
-Other modules will implement components of the job and declare them within their `META-INF/batch.xml` file.
+Uses Apache Camel with CDI.
 
 ## Configuration
 
-Requires a file `gucoca-config.json` to be in the working directory.
+Loads configuration form `$HOME/.config.gucoca.json`.
 
 e.g.:
 
 ```json
 {
-  "s3BucketName": "www.cossmass.com",
-  "s3BucketPrefix": "public",
-  "storyFilename": "gucoca.json"
+  "startFrequencySeconds": 3600,
+  "percentChanceToPost": 1,
+  "awsRegion": "eu-west-2",
+  "s3BucketName": "...",
+  "s3BucketPrefix": "...",
+  "storyFilename": "gucoca.json",
+  "ddbTableName": "GucocaBroadcastHistory",
+  "twitterDelayMillis": 21600000,
+  "twitterApiKey":  "...",
+  "twitterApiSecretKey": "...",
+  "twitterAccessToken": "...",
+  "twitterAccessTokenSecret": "...",
+  "noRepeatDays": 60,
+  "notificationRecipient": "recipient@example.net",
+  "emailSender": "noreply@example.net"
 }
 ```

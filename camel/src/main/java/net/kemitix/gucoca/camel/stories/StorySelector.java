@@ -2,6 +2,7 @@ package net.kemitix.gucoca.camel.stories;
 
 import net.kemitix.gucoca.spi.Story;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -13,8 +14,10 @@ public class StorySelector {
     public Story select(StoryContext storyContext) {
         List<Story> stories =
                 storyContext
-                        .getStories()
+                        .stories()
                         .stream()
+                        .filter(story -> story.isPublished(Instant.now()))
+                        .filter(story -> !story.getBlurb().isEmpty())
                         .filter(story ->
                                 !storyContext
                                         .getHistory()

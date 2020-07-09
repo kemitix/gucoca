@@ -25,7 +25,8 @@ class StoriesRoutes
                 .routeId("load-stories")
                 .setBody(exchange -> exchange.getIn()
                         .getBody(StoryContext.class)
-                        .withStories(storyLoader.load()))
+                        .withIssues(storyLoader.load()))
+                .log("Loaded Issues ${body.issues.size}")
                 .log("Loaded Stories ${body.stories.size}")
         ;
 

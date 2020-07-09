@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import net.kemitix.gucoca.spi.GucocaConfig;
+import net.kemitix.gucoca.spi.Issue;
 import net.kemitix.gucoca.spi.Story;
 
 import javax.inject.Inject;
@@ -24,45 +25,50 @@ class StoryLoader {
     @Inject GucocaConfig config;
     @Inject AmazonS3 amazonS3;
 
-    List<Story> load() {
-        return getKeysForStories()
-                .map(fetchStory())
-                .map(parseAsStory())
+    List<Issue> load() {
+        return getKeysForConfigFiles()
+                .map(fetchConfigFiles())
+                .map(parseAsIssue())
                 .collect(Collectors.toList());
     }
 
     Story addStoryCard(Story story) {
-        InputStream objectContent = amazonS3.getObject(
-                new GetObjectRequest(
-                        config.getS3BucketName(),
-                        Paths.get(story.getKey())
-                                .getParent()
-                                .resolve("gucoca.webp")
-                                .toString()))
-                .getObjectContent();
-        story.setStoryCardInputStream(objectContent);
-        return story;
+        String cardKey = String.format("content/issue/%d/story-card-%s.webp",
+                story.getIssue(), story.slug());
+        try {
+            InputStream objectContent = amazonS3.getObject(
+                    new GetObjectRequest(
+                            config.getS3BucketName(),
+                            cardKey))
+                    .getObjectContent();
+            story.setStoryCardInputStream(objectContent);
+            return story;
+        } catch (AmazonS3Exception e) {
+            log.warn("Key not found: {}", cardKey);
+            return story;
+        }
     }
 
-    private Function<S3Object, Story> parseAsStory() {
+    private Function<S3Object, Issue> parseAsIssue() {
         return s3Object -> {
             InputStream content = s3Object.getObjectContent();
             try {
-                Story story = mapper.readValue(content, Story.class);
-                story.setKey(s3Object.getKey());
-                return story;
+                Issue issue = mapper.readValue(content, Issue.class);
+                issue.getStories()
+                        .forEach(story -> story.setIssue(issue.getIssue()));
+                return issue;
             } catch (IOException e) {
                 throw new RuntimeException("Error parsing as story", e);
             }
         };
     }
 
-    private Function<S3ObjectSummary, S3Object> fetchStory() {
+    private Function<S3ObjectSummary, S3Object> fetchConfigFiles() {
         return s -> amazonS3.getObject(
                 new GetObjectRequest(s.getBucketName(), s.getKey()));
     }
 
-    private Stream<S3ObjectSummary> getKeysForStories() {
+    private Stream<S3ObjectSummary> getKeysForConfigFiles() {
         return amazonS3.listObjectsV2(
                 new ListObjectsV2Request()
                         .withBucketName(config.getS3BucketName())
