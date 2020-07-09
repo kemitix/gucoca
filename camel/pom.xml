@@ -116,6 +116,12 @@
       <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
     </dependency>
 
+    <!-- Velicity Templating -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-velocity</artifactId>
+    </dependency>
+
     <!-- Twitter -->
     <dependency>
       <groupId>org.apache.camel</groupId>

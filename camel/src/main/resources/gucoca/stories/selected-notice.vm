@@ -1,0 +1,3 @@
+<h1>Selected: ${body.title} by ${body.author}</h1>
+<p>This story has been selected to be promoted on Twitter.</p>
+<p>Sent from: ${headers.Hostname}</p>
