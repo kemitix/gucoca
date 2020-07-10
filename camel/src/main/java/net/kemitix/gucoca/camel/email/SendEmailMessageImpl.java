@@ -1,6 +1,7 @@
 package net.kemitix.gucoca.camel.email;
 
 import lombok.RequiredArgsConstructor;
+import net.kemitix.gucoca.common.spi.SendEmailMessage;
 import org.apache.camel.Message;
 import org.apache.camel.component.aws.ses.SesConstants;
 

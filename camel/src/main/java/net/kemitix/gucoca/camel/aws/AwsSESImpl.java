@@ -1,6 +1,7 @@
 package net.kemitix.gucoca.camel.aws;
 
-import net.kemitix.gucoca.spi.GucocaConfig;
+import net.kemitix.gucoca.common.spi.AwsSES;
+import net.kemitix.gucoca.twitter.stories.GucocaConfig;
 
 import javax.inject.Inject;
 import java.util.Arrays;

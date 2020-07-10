@@ -7,9 +7,10 @@
     <modules>
         <module>parent</module>
         <module>testing</module>
-        <module>utils</module>
-        <module>spi</module>
         <module>camel</module>
+        <module>twitter-stories</module>
+        <module>twitter-stories-camel</module>
+        <module>common</module>
     </modules>
 
     <groupId>net.kemitix.gucoca</groupId>
