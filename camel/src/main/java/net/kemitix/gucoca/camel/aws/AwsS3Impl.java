@@ -1,9 +1,8 @@
 package net.kemitix.gucoca.camel.aws;
 
 import net.kemitix.gucoca.common.spi.AwsS3;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
+import net.kemitix.gucoca.common.spi.AwsS3Config;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,21 +10,25 @@ import java.util.List;
 
 class AwsS3Impl implements AwsS3 {
 
-    @Inject GucocaConfig config;
-
     @Override
-    public String listObjects(String prefix) {
+    public String listObjects(String prefix, AwsS3Config config) {
         return awsS3Operation("listObjects",
-                Collections.singletonList("prefix=" + prefix));
+                Collections.singletonList("prefix=" + prefix),
+                config);
     }
 
     @Override
-    public String getObjects() {
+    public String getObjects(AwsS3Config config) {
         return awsS3Operation("getObject",
-                Collections.emptyList());
+                Collections.emptyList(),
+                config);
     }
 
-    private String awsS3Operation(String operation, List<String> additionalOptions) {
+    private String awsS3Operation(
+            String operation,
+            List<String> additionalOptions,
+            AwsS3Config config
+    ) {
         List<String> options = new ArrayList<>();
         options.addAll(Arrays.asList(
                 "amazonS3Client=#amazonS3Client",

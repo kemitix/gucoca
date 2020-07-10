@@ -4,9 +4,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
-import net.kemitix.gucoca.twitter.stories.Issue;
-import net.kemitix.gucoca.twitter.stories.Story;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -21,7 +18,8 @@ public class StoryLoader {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @Inject GucocaConfig config;
+    @Inject
+    TwitterStoriesConfig config;
     @Inject AmazonS3 amazonS3;
 
     public List<Issue> load() {

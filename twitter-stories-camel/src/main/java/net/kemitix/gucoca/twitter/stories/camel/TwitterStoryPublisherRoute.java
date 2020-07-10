@@ -1,7 +1,7 @@
 package net.kemitix.gucoca.twitter.stories.camel;
 
 import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
+import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import net.kemitix.gucoca.twitter.stories.Story;
 import net.kemitix.gucoca.twitter.stories.TwitterStoryPublisher;
 import org.apache.camel.CamelContext;
@@ -27,7 +27,8 @@ class TwitterStoryPublisherRoute
     private static final Random random = new Random();
     private static int maxTweetLength = 280;
 
-    @Inject GucocaConfig config;
+    @Inject
+    TwitterStoriesConfig config;
 
     @Override
     public void configure() {

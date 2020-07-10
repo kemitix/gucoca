@@ -1,7 +1,6 @@
 package net.kemitix.gucoca.twitter.stories;
 
 import lombok.extern.log4j.Log4j2;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
 
 import javax.inject.Inject;
 import java.time.Instant;
@@ -16,7 +15,8 @@ public class PostingFrequency {
 
     private static final Random random = new Random();
 
-    @Inject GucocaConfig config;
+    @Inject
+    TwitterStoriesConfig config;
 
     public String startTimer() {
         long startPeriodMilliseconds = config.getStartFrequencySeconds() * 1000;

@@ -8,7 +8,8 @@ import javax.inject.Inject;
 
 public class GucocaRoutes extends RouteBuilder {
 
-    @Inject GucocaConfig config;
+    @Inject
+    TwitterStoriesConfig config;
     @Inject PostingFrequency postingFrequency;
     @Inject StorySelector storySelector;
 

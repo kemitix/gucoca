@@ -1,7 +1,8 @@
-package net.kemitix.gucoca.twitter.stories;
+package net.kemitix.gucoca.camel.email;
 
-import net.kemitix.gucoca.common.spi.JsonObjectParser;
 import net.kemitix.gucoca.common.ServiceSupplier;
+import net.kemitix.gucoca.common.spi.AwsSesConfig;
+import net.kemitix.gucoca.common.spi.JsonObjectParser;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -12,19 +13,19 @@ import java.io.FileNotFoundException;
 @ApplicationScoped
 class LoadConfigFile {
 
-    //  $HOME/.config/gucoca-twitter-stories.json
+    //  $HOME/.config/gucoca-ses.json
     String configFile = String.join(File.separator,
             System.getProperty("user.home"),
             ".config",
-            "gucoca-twitter-stories.json");
+            "gucoca-ses.json");
 
     ServiceSupplier serviceSupplier = ServiceSupplier.create();
 
     @Produces
-    TwitterStoriesConfig config() throws FileNotFoundException {
+    AwsSesConfig config() throws FileNotFoundException {
         return serviceSupplier.findOne(JsonObjectParser.class)
                 .fromJson(new FileInputStream(configFile),
-                        TwitterStoriesConfig.class);
+                        AwsSesConfigImpl.class);
     }
 
 }

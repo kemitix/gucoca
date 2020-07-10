@@ -1,26 +1,23 @@
 package net.kemitix.gucoca.camel.aws;
 
+import net.kemitix.gucoca.common.AwsDdbConfig;
 import net.kemitix.gucoca.common.spi.AwsDynamoDB;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
 
-import javax.inject.Inject;
 import java.util.Arrays;
 
 class AwsDynamoDBImpl implements AwsDynamoDB {
 
-    @Inject GucocaConfig config;
-
     @Override
-    public String scan() {
-        return awsDDBOperation("Scan");
+    public String scan(AwsDdbConfig config) {
+        return awsDDBOperation("Scan", config);
     }
 
     @Override
-    public String put() {
-        return awsDDBOperation("PutItem");
+    public String put(AwsDdbConfig config) {
+        return awsDDBOperation("PutItem", config);
     }
 
-    private String awsDDBOperation(String operation) {
+    private String awsDDBOperation(String operation, AwsDdbConfig config) {
         String options = String.join("&", Arrays.asList(
                 "amazonDDBClient=#amazonDDBClient",
                 "operation=" + operation

@@ -11,9 +11,19 @@ Uses Apache Camel with CDI.
 
 ## Configuration
 
-Loads configuration form `$HOME/.config.gucoca.json`.
+Loads configuration form `$HOME/.config/gucoca-ses.json` and `$HOME/.config/gucoca-twitter-stories.json`.
 
-e.g.:
+* `gucoca-ses.json` e.g.:
+
+```json
+{
+  "awsRegion": "eu-west-2",
+  "notificationRecipient": "recipient@example.net",
+  "emailSender": "noreply@example.net"
+}
+```
+
+* `gucoca-twitter-stories.json` e.g.:
 
 ```json
 {

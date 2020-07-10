@@ -2,13 +2,16 @@ package net.kemitix.gucoca.twitter.stories;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.kemitix.gucoca.common.AwsDdbConfig;
+import net.kemitix.gucoca.common.spi.AwsS3Config;
 
 import javax.enterprise.inject.Vetoed;
 
 @Setter
 @Getter
 @Vetoed
-public class GucocaConfig {
+public class TwitterStoriesConfig
+        implements AwsS3Config, AwsDdbConfig {
 
     private long startFrequencySeconds;
     private int percentChanceToPost;

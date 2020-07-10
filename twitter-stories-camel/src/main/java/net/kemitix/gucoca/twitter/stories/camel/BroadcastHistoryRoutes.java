@@ -5,7 +5,7 @@ import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import net.kemitix.gucoca.common.spi.AwsDynamoDB;
 import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
+import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import net.kemitix.gucoca.twitter.stories.StoryContext;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -27,7 +27,8 @@ class BroadcastHistoryRoutes
     private static final String FIELD_SLUG = "Slug";
     private static final String FIELD_BROADCAST_DATE = "BroadcastDate";
 
-    @Inject GucocaConfig config;
+    @Inject
+    TwitterStoriesConfig config;
     @Inject AwsDynamoDB awsDynamoDB;
 
     @Override
@@ -40,7 +41,7 @@ class BroadcastHistoryRoutes
                 .routeId("load-history")
                 // load history
                 .process(setCriteria(expiryDate))
-                .to(awsDynamoDB.scan())
+                .to(awsDynamoDB.scan(config))
                 .process(putSlugsInContext())
                 .log("Loaded History: ${body.history.size}")
         ;
@@ -48,7 +49,7 @@ class BroadcastHistoryRoutes
         from(UPDATE_ENDPOINT)
                 .routeId("add-to-history")
                 .process(setStorySlug())
-                .to(awsDynamoDB.put())
+                .to(awsDynamoDB.put(config))
                 .log("Finished")
         ;
     }

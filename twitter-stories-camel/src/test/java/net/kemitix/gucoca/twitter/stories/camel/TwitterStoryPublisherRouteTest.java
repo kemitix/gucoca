@@ -1,10 +1,9 @@
 package net.kemitix.gucoca.twitter.stories.camel;
 
 import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
+import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import net.kemitix.gucoca.twitter.stories.Story;
 import net.kemitix.gucoca.twitter.stories.TwitterStoryPublisher;
-import net.kemitix.gucoca.twitter.stories.camel.TwitterStoryPublisherRoute;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.RoutesBuilder;
@@ -31,7 +30,7 @@ class TwitterStoryPublisherRouteTest
     extends CamelTestSupport
         implements WithAssertions {
 
-    private final GucocaConfig config = new GucocaConfig();
+    private final TwitterStoriesConfig config = new TwitterStoriesConfig();
 
     private final InputStream inputStream;
 

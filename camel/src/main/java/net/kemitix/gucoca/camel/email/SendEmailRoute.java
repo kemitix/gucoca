@@ -1,8 +1,9 @@
 package net.kemitix.gucoca.camel.email;
 
 import net.kemitix.gucoca.common.spi.AwsSES;
+import net.kemitix.gucoca.common.spi.AwsSesConfig;
 import net.kemitix.gucoca.common.spi.SendEmail;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
+import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ses.SesConstants;
@@ -14,7 +15,7 @@ class SendEmailRoute
         extends RouteBuilder
         implements SendEmail {
 
-    @Inject GucocaConfig config;
+    @Inject AwsSesConfig config;
     @Inject AwsSES awsSES;
 
     @Override
@@ -24,7 +25,7 @@ class SendEmailRoute
                 .log(String.format(
                         "Sending email to ${header.[%s]}: ${header.[%s]}",
                         SesConstants.TO, SesConstants.SUBJECT))
-                .to(awsSES.send("sender"));
+                .to(awsSES.send("sender", config));
 
         from(SEND_ERROR)
                 .routeId("send-email-error")
@@ -35,7 +36,7 @@ class SendEmailRoute
                         config.getEmailSender()))
                 .setHeader(SesConstants.SUBJECT, constant(
                         "ERROR"))
-                .to(awsSES.send("error"));
+                .to(SEND);
     }
 
 }

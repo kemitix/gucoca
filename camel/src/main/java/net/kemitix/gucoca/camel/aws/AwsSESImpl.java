@@ -1,18 +1,16 @@
 package net.kemitix.gucoca.camel.aws;
 
+import net.kemitix.gucoca.common.spi.AwsConfig;
 import net.kemitix.gucoca.common.spi.AwsSES;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
+import net.kemitix.gucoca.common.spi.AwsSesConfig;
 
-import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
 class AwsSESImpl implements AwsSES {
 
-    @Inject GucocaConfig config;
-
     @Override
-    public String send(String from) {
+    public String send(String from, AwsSesConfig config) {
         List<String> options = Arrays.asList(
                 "amazonSESClient=#amazonSESClient",
                 "region=" + config.getAwsRegion()

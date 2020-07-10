@@ -1,10 +1,8 @@
 package net.kemitix.gucoca.twitter.stories.camel;
 
+import net.kemitix.gucoca.common.spi.AwsSesConfig;
 import net.kemitix.gucoca.common.spi.SendEmail;
-import net.kemitix.gucoca.twitter.stories.GucocaConfig;
-import net.kemitix.gucoca.twitter.stories.Stories;
-import net.kemitix.gucoca.twitter.stories.StoryContext;
-import net.kemitix.gucoca.twitter.stories.StoryLoader;
+import net.kemitix.gucoca.twitter.stories.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.SimpleBuilder;
 import org.apache.camel.builder.ValueBuilder;
@@ -19,7 +17,7 @@ class StoriesRoutes
         extends RouteBuilder
         implements Stories {
 
-    @Inject GucocaConfig config;
+    @Inject TwitterStoriesConfig config;
     @Inject StoryLoader storyLoader;
 
     @Override
