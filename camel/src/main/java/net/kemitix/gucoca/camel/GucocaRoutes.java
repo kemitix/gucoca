@@ -1,5 +1,6 @@
 package net.kemitix.gucoca.camel;
 
+import net.kemitix.gucoca.camel.email.SendEmail;
 import net.kemitix.gucoca.camel.history.BroadcastHistory;
 import net.kemitix.gucoca.camel.stories.Stories;
 import net.kemitix.gucoca.camel.stories.StoryContext;
@@ -18,6 +19,7 @@ public class GucocaRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
+        errorHandler(deadLetterChannel(SendEmail.SEND_ERROR));
         from(postingFrequency.startTimer())
                 .routeId("main")
                 .filter(postingFrequency.shouldIRun())
