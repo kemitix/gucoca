@@ -5,6 +5,10 @@ Posts stories from the archives at random to Twitter for Cossmass Infinities
 
 ![Reactor Module Dependencies](./docs/images/reactor-graph.png)
 
+## Requirements
+
+* JDK 11+
+
 ## Organisation
 
 Uses Apache Camel with CDI.
