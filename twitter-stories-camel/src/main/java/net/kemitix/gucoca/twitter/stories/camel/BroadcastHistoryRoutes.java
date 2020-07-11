@@ -27,8 +27,7 @@ class BroadcastHistoryRoutes
     private static final String FIELD_SLUG = "Slug";
     private static final String FIELD_BROADCAST_DATE = "BroadcastDate";
 
-    @Inject
-    TwitterStoriesConfig config;
+    @Inject TwitterStoriesConfig config;
     @Inject AwsDynamoDB awsDynamoDB;
 
     @Override

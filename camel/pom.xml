@@ -33,12 +33,19 @@
       <artifactId>gucoca-twitter-stories-camel</artifactId>
     </dependency>
 
-    <!-- CDI API -->
+    <!-- Jakarta EE -->
     <dependency>
-      <groupId>javax.enterprise</groupId>
-      <artifactId>cdi-api</artifactId>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
       <scope>provided</scope>
     </dependency>
+
+    <!-- CDI API -->
+<!--    <dependency>-->
+<!--      <groupId>javax.enterprise</groupId>-->
+<!--      <artifactId>cdi-api</artifactId>-->
+<!--      <scope>provided</scope>-->
+<!--    </dependency>-->
 
     <!-- Camel CDI -->
     <dependency>
@@ -47,23 +54,23 @@
     </dependency>
 
     <!-- CDI Runtime -->
-    <dependency>
-      <groupId>org.apache.deltaspike.cdictrl</groupId>
-      <artifactId>deltaspike-cdictrl-weld</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld.se</groupId>
-      <artifactId>weld-se-shaded</artifactId>
-      <scope>runtime</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.apache.deltaspike.cdictrl</groupId>-->
+<!--      <artifactId>deltaspike-cdictrl-weld</artifactId>-->
+<!--      <scope>runtime</scope>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.jboss.weld.se</groupId>-->
+<!--      <artifactId>weld-se-shaded</artifactId>-->
+<!--      <scope>runtime</scope>-->
+<!--    </dependency>-->
 
     <!-- Jakarta Annotations -->
-    <dependency>
-      <groupId>jakarta.annotation</groupId>
-      <artifactId>jakarta.annotation-api</artifactId>
-      <version>${jakarta.annotation-api.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>jakarta.annotation</groupId>-->
+<!--      <artifactId>jakarta.annotation-api</artifactId>-->
+<!--      <version>${jakarta.annotation-api.version}</version>-->
+<!--    </dependency>-->
 
     <!-- logging -->
     <dependency>
@@ -103,7 +110,7 @@
       <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
     </dependency>
 
-    <!-- Velicity Templating -->
+    <!-- Velocity Templating -->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-velocity</artifactId>
@@ -116,15 +123,15 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- hawt.io -->
-    <dependency>
-      <groupId>io.hawt</groupId>
-      <artifactId>hawtio-embedded</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-management</artifactId>
-    </dependency>
+<!--    &lt;!&ndash; hawt.io &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>io.hawt</groupId>-->
+<!--      <artifactId>hawtio-embedded</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.camel</groupId>-->
+<!--      <artifactId>camel-management</artifactId>-->
+<!--    </dependency>-->
   </dependencies>
 
   <build>

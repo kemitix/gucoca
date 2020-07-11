@@ -15,17 +15,19 @@ public class PostingFrequency {
 
     private static final Random random = new Random();
 
-    @Inject
-    TwitterStoriesConfig config;
+//    @Inject TwitterStoriesConfig config;
 
-    public String startTimer() {
+    public String startTimer(TwitterStoriesConfig config) {
         long startPeriodMilliseconds = config.getStartFrequencySeconds() * 1000;
         return "timer:start-load-history?period=" + startPeriodMilliseconds;
     }
 
-    public boolean shouldIRun() {
+    public boolean shouldIRun(TwitterStoriesConfig config) {
         int roll = random.nextInt(100);
-        log.info("Rolled " + roll + " @ " + Instant.now().toString());
-        return roll <= config.getPercentChanceToPost();
+        log.info("Rolled {} @ {}", roll, Instant.now().toString());
+        log.info("Config: {}", config);
+        int percentChanceToPost = config.getPercentChanceToPost();
+        log.info("Target: {}", percentChanceToPost);
+        return roll <= percentChanceToPost;
     }
 }

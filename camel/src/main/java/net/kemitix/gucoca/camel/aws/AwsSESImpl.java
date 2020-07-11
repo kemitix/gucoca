@@ -1,6 +1,5 @@
 package net.kemitix.gucoca.camel.aws;
 
-import net.kemitix.gucoca.common.spi.AwsConfig;
 import net.kemitix.gucoca.common.spi.AwsSES;
 import net.kemitix.gucoca.common.spi.AwsSesConfig;
 
