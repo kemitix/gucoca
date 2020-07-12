@@ -20,15 +20,15 @@ public class PropertiesLoader {
         // optional environment: gucoca-twitterstories-${GUCOCA-ENV}.properties
         Optional.ofNullable(System.getenv("GUCOCA_ENV")).ifPresent(env -> {
             // in current directory
-            String fileName = String.format("gucoca-twitterstories-%s.properties", env);
-            if (new File(fileName).exists())
-                component.addLocation("file:" + fileName);
+            String envFileName = String.format("gucoca-twitterstories-%s.properties", env);
+            if (new File(envFileName).exists())
+                component.addLocation("file:" + envFileName);
 
             // in $HOME/.config/
-            String userFile = String.format("file:%s/.config/%s",
-                    System.getProperty("user.home"), fileName);
+            String userFile = String.format("%s/.config/%s",
+                    System.getProperty("user.home"), envFileName);
             if (new File(userFile).exists())
-                component.addLocation(userFile);
+                component.addLocation("file:" + userFile);
         });
 
         // in current directory
@@ -37,10 +37,10 @@ public class PropertiesLoader {
             component.addLocation("file:" + fileName);
 
         // in $HOME/.config/
-        String userFile = String.format("file:%s/.config/%s",
+        String userFile = String.format("%s/.config/%s",
                 System.getProperty("user.home"), fileName);
         if (new File(userFile).exists())
-            component.addLocation(userFile);
+            component.addLocation("file:" + userFile);
 
         // default bundled in jar
         component.addLocation("classpath:" + fileName);
