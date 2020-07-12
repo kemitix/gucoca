@@ -1,10 +1,8 @@
 package net.kemitix.gucoca.common.spi;
 
-import net.kemitix.gucoca.common.AwsDdbConfig;
-
 public interface AwsDynamoDB {
 
-    String scan(AwsDdbConfig config);
-    String put(AwsDdbConfig config);
+    String scan(String tableName);
+    String put(String tableName);
 
 }

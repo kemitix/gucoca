@@ -5,10 +5,10 @@ import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import net.kemitix.gucoca.common.spi.AwsDynamoDB;
 import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import net.kemitix.gucoca.twitter.stories.StoryContext;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ddb.DdbConstants;
 
@@ -28,20 +28,23 @@ class BroadcastHistoryRoutes
     private static final String FIELD_BROADCAST_DATE = "BroadcastDate";
 
     @Inject
-    TwitterStoriesConfig config;
-    @Inject AwsDynamoDB awsDynamoDB;
+    AwsDynamoDB awsDynamoDB;
+    @PropertyInject("gucoca.twitterstories.norepeatdays")
+    long noRepeatDays;
+    @PropertyInject("gucoca.twitterstories.historytable")
+    String tableName;
 
     @Override
     public void configure() {
         long expiryDate = Instant.now()
-                .minus(config.getNoRepeatDays(), ChronoUnit.DAYS)
+                .minus(noRepeatDays, ChronoUnit.DAYS)
                 .getEpochSecond();
 
         from(BroadcastHistory.LOAD_ENDPOINT)
                 .routeId("load-history")
                 // load history
                 .process(setCriteria(expiryDate))
-                .to(awsDynamoDB.scan(config))
+                .to(awsDynamoDB.scan(tableName))
                 .process(putSlugsInContext())
                 .log("Loaded History: ${body.history.size}")
         ;
@@ -49,7 +52,7 @@ class BroadcastHistoryRoutes
         from(UPDATE_ENDPOINT)
                 .routeId("add-to-history")
                 .process(setStorySlug())
-                .to(awsDynamoDB.put(config))
+                .to(awsDynamoDB.put(tableName))
                 .log("Finished")
         ;
     }

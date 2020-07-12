@@ -1,17 +1,16 @@
 package net.kemitix.gucoca.twitter.stories.camel;
 
 import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import net.kemitix.gucoca.twitter.stories.Story;
 import net.kemitix.gucoca.twitter.stories.TwitterStoryPublisher;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.twitter.timeline.TwitterTimelineComponent;
 import twitter4j.StatusUpdate;
 
-import javax.inject.Inject;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -27,8 +26,20 @@ class TwitterStoryPublisherRoute
     private static final Random random = new Random();
     private static int maxTweetLength = 280;
 
-    @Inject
-    TwitterStoriesConfig config;
+    @PropertyInject("gucoca.twitterstories.enabled")
+    boolean twitterEnabled;
+
+    @PropertyInject("gucoca.twitterstories.token.access")
+    String twitterAccessToken;
+
+    @PropertyInject("gucoca.twitterstories.token.secret")
+    String twitterAccessTokenSecret;
+
+    @PropertyInject("gucoca.twitterstories.api.key")
+    String twitterApiKey;
+
+    @PropertyInject("gucoca.twitterstories.api.secret")
+    String twitterApiSecretKey;
 
     @Override
     public void configure() {
@@ -37,7 +48,7 @@ class TwitterStoryPublisherRoute
                 .routeId("twitter-story-publisher")
                 .process(preparePost())
                 .choice()
-                .when(exchange -> config.isTwitterEnabled())
+                .when(exchange -> twitterEnabled)
                 .to("twitter-timeline:USER")
                 .otherwise()
                 .log("Not posting to twitter")
@@ -50,10 +61,10 @@ class TwitterStoryPublisherRoute
         TwitterTimelineComponent component =
                 camelContext.getComponent("twitter-timeline",
                         TwitterTimelineComponent.class);
-        component.setAccessToken(config.getTwitterAccessToken());
-        component.setAccessTokenSecret(config.getTwitterAccessTokenSecret());
-        component.setConsumerKey(config.getTwitterApiKey());
-        component.setConsumerSecret(config.getTwitterApiSecretKey());
+        component.setAccessToken(twitterAccessToken);
+        component.setAccessTokenSecret(twitterAccessTokenSecret);
+        component.setConsumerKey(twitterApiKey);
+        component.setConsumerSecret(twitterApiSecretKey);
     }
 
     private Processor preparePost() {

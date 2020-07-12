@@ -3,6 +3,7 @@ package net.kemitix.gucoca.twitter.stories.camel;
 import net.kemitix.gucoca.common.spi.AwsSesConfig;
 import net.kemitix.gucoca.common.spi.SendEmail;
 import net.kemitix.gucoca.twitter.stories.*;
+import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.SimpleBuilder;
 import org.apache.camel.builder.ValueBuilder;
@@ -17,8 +18,12 @@ class StoriesRoutes
         extends RouteBuilder
         implements Stories {
 
-    @Inject TwitterStoriesConfig config;
-    @Inject StoryLoader storyLoader;
+    @Inject
+    StoryLoader storyLoader;
+    @PropertyInject("gucoca.twitterstories.email.sender")
+    String emailSender;
+    @PropertyInject("gucoca.twitterstories.email.recipient")
+    String notificationRecipient;
 
     @Override
     public void configure() throws UnknownHostException {
@@ -37,9 +42,9 @@ class StoriesRoutes
                 .bean(storyLoader, "addStoryCard")
         ;
 
-        ValueBuilder sender = constant(config.getEmailSender());
+        ValueBuilder sender = constant(emailSender);
         ValueBuilder recipient = constant(Collections.singletonList(
-                config.getNotificationRecipient()));
+                notificationRecipient));
         SimpleBuilder subject = simple(
                 "Story Selected: ${body.title} by ${body.author}");
         ValueBuilder hostname = constant(

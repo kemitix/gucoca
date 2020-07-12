@@ -28,7 +28,6 @@
         <aws-java-sdk-dynamodb.version>1.11.816</aws-java-sdk-dynamodb.version>
         <aws-java-sdk-ses.version>1.11.816</aws-java-sdk-ses.version>
 
-        <jakartaee-api.version>8.0.0</jakartaee-api.version>
         <jackson-databind-aws-sdk-java.version>2.9.10.5</jackson-databind-aws-sdk-java.version>
         <lombok.version>1.18.12</lombok.version>
 
@@ -50,13 +49,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- jakarta ee -->
-            <dependency>
-                <groupId>jakarta.platform</groupId>
-                <artifactId>jakarta.jakartaee-api</artifactId>
-                <version>${jakartaee-api.version}</version>
-            </dependency>
-
             <!-- Apache Camel -->
             <dependency>
                 <groupId>org.apache.camel</groupId>

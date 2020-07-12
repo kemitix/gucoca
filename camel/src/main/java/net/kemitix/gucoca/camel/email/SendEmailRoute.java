@@ -3,7 +3,6 @@ package net.kemitix.gucoca.camel.email;
 import net.kemitix.gucoca.common.spi.AwsSES;
 import net.kemitix.gucoca.common.spi.AwsSesConfig;
 import net.kemitix.gucoca.common.spi.SendEmail;
-import net.kemitix.gucoca.twitter.stories.TwitterStoriesConfig;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ses.SesConstants;

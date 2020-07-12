@@ -103,7 +103,7 @@
       <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
     </dependency>
 
-    <!-- Velicity Templating -->
+    <!-- Velocity Templating -->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-velocity</artifactId>

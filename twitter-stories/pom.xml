@@ -19,13 +19,6 @@
             <artifactId>gucoca-common</artifactId>
         </dependency>
 
-        <!-- Jakarta EE -->
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- AWS -->
         <dependency>
             <groupId>net.kemitix.aws</groupId>
@@ -51,6 +44,10 @@
             <groupId>net.kemitix.gucoca</groupId>
             <artifactId>gucoca-testing</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-api</artifactId>
         </dependency>
 
     </dependencies>
