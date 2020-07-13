@@ -1,8 +1,8 @@
 package net.kemitix.gucoca.twitter.stories;
 
 import lombok.extern.log4j.Log4j2;
-import org.apache.camel.Header;
 
+import javax.inject.Inject;
 import java.time.Instant;
 import java.util.Random;
 
@@ -13,16 +13,15 @@ import java.util.Random;
 @Log4j2
 public class PostingFrequency {
 
-    private static final Random random = new Random();
+    @Inject
+    Random random;
 
-    public String startTimer( int startFrequencySeconds) {
+    public String startTimer(int startFrequencySeconds) {
         long startPeriodMilliseconds = startFrequencySeconds * 1000;
-        return "timer:start-load-history?period=" + startPeriodMilliseconds;
+        return "timer:GuCoca.TwitterStories.Start?period=" + startPeriodMilliseconds;
     }
 
-    public boolean shouldIRun(
-            @Header("Gucoca.TwitterStories.ChanceToPost") int percentChangeToPost
-    ) {
+    public boolean shouldIRun(int percentChangeToPost) {
         int roll = random.nextInt(100);
         log.info("Rolled " + roll + " @ " + Instant.now().toString());
         return roll <= percentChangeToPost;

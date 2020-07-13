@@ -2,7 +2,6 @@ package net.kemitix.gucoca.twitter.stories;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.io.InputStream;
 import java.time.Instant;
@@ -10,7 +9,6 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.List;
 
-@ToString
 @Setter
 @Getter
 public class Story {

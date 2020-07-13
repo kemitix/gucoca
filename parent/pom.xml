@@ -45,6 +45,7 @@
         <assertj.version>3.16.1</assertj.version>
         <mockito.version>3.4.0</mockito.version>
         <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <twitter4j.version>4.0.7</twitter4j.version>
     </properties>
 
     <dependencyManagement>
@@ -121,6 +122,13 @@
                 <groupId>net.kemitix.aws</groupId>
                 <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
                 <version>${aws-java-sdk-ses.version}</version>
+            </dependency>
+
+            <!-- twitter -->
+            <dependency>
+                <groupId>org.twitter4j</groupId>
+                <artifactId>twitter4j-core</artifactId>
+                <version>${twitter4j.version}</version>
             </dependency>
 
             <!-- Jackson -->

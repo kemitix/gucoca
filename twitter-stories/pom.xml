@@ -19,10 +19,20 @@
             <artifactId>gucoca-common</artifactId>
         </dependency>
 
+        <!-- twitter -->
+        <dependency>
+            <groupId>org.twitter4j</groupId>
+            <artifactId>twitter4j-core</artifactId>
+        </dependency>
+
         <!-- AWS -->
         <dependency>
             <groupId>net.kemitix.aws</groupId>
             <artifactId>kemitix-aws-java-sdk-s3-wrapper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.kemitix.aws</groupId>
+            <artifactId>kemitix-aws-java-sdk-dynamodb-wrapper</artifactId>
         </dependency>
 
         <!-- lombok -->
@@ -44,10 +54,6 @@
             <groupId>net.kemitix.gucoca</groupId>
             <artifactId>gucoca-testing</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-api</artifactId>
         </dependency>
 
     </dependencies>

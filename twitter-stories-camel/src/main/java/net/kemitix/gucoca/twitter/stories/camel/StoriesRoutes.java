@@ -1,8 +1,9 @@
 package net.kemitix.gucoca.twitter.stories.camel;
 
-import net.kemitix.gucoca.common.spi.AwsSesConfig;
 import net.kemitix.gucoca.common.spi.SendEmail;
-import net.kemitix.gucoca.twitter.stories.*;
+import net.kemitix.gucoca.twitter.stories.Stories;
+import net.kemitix.gucoca.twitter.stories.StoryContext;
+import net.kemitix.gucoca.twitter.stories.StoryLoader;
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.SimpleBuilder;
@@ -25,6 +26,13 @@ class StoriesRoutes
     @PropertyInject("gucoca.twitterstories.email.recipient")
     String notificationRecipient;
 
+    @PropertyInject("gucoca.twitterstories.s3bucketname")
+    String s3BucketName;
+    @PropertyInject("gucoca.twitterstories.s3bucketprefix")
+    String s3BucketPrefix;
+    @PropertyInject("gucoca.twitterstories.issuefilename")
+    String issueFilename;
+
     @Override
     public void configure() throws UnknownHostException {
 
@@ -32,14 +40,14 @@ class StoriesRoutes
                 .routeId("load-stories")
                 .setBody(exchange -> exchange.getIn()
                         .getBody(StoryContext.class)
-                        .withIssues(storyLoader.load()))
+                        .withIssues(storyLoader.load(s3BucketName, s3BucketPrefix, issueFilename)))
                 .log("Loaded Issues ${body.issues.size}")
                 .log("Loaded Stories ${body.stories.size}")
         ;
 
         from(ADD_STORY_CARD)
                 .routeId("add-story-card")
-                .bean(storyLoader, "addStoryCard")
+                .bean(storyLoader, "addStoryCard(${body}, {{gucoca.twitterstories.s3bucketname}})")
         ;
 
         ValueBuilder sender = constant(emailSender);

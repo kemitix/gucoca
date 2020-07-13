@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 public class GucocaRoutes extends RouteBuilder {
 
+    private static final String CHANCE_TO_POST = "Gucoca.TwitterStories.ChanceToPost";
     @Inject PostingFrequency postingFrequency;
     @Inject StorySelector storySelector;
 
@@ -24,13 +25,14 @@ public class GucocaRoutes extends RouteBuilder {
         errorHandler(deadLetterChannel(SendEmail.SEND_ERROR));
         from(postingFrequency.startTimer(postFrequency))
                 .routeId("main")
-                .setHeader("Gucoca.TwitterStories.ChanceToPost", constant(changeToPost))
-                .filter().method(postingFrequency, "shouldIRun")
-                .setBody(exchange -> StoryContext.builder().build())
+                .setHeader(CHANCE_TO_POST, constant(changeToPost))
+                .filter().method(postingFrequency, String.format(
+                        "shouldIRun(${header.[%s]})", CHANCE_TO_POST))
+                .setBody(exchange -> StoryContext.empty())
                 .enrich(BroadcastHistory.LOAD_ENDPOINT)
                 .enrich(Stories.LOAD_STORIES)
                 .filter(simple("${body.stories.size} > 0"))
-                .bean(storySelector, "select")
+                .bean(storySelector)
                 .log("Story selected ${body.slug}")
                 .enrich(Stories.ADD_STORY_CARD)
                 .to(Stories.NOTIFY_SELECTION)

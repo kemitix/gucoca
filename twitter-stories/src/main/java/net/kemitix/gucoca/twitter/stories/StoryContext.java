@@ -1,10 +1,9 @@
 package net.kemitix.gucoca.twitter.stories;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.With;
-import net.kemitix.gucoca.twitter.stories.Issue;
-import net.kemitix.gucoca.twitter.stories.Story;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 
 @With
 @Getter
-@Builder
+@Builder(access = AccessLevel.PRIVATE)
 public class StoryContext {
 
     @Builder.Default
@@ -26,5 +25,9 @@ public class StoryContext {
                 .map(Issue::getStories)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+    }
+
+    public static StoryContext empty() {
+        return StoryContext.builder().build();
     }
 }

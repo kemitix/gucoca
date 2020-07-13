@@ -1,5 +1,6 @@
 package net.kemitix.gucoca.twitter.stories;
 
+import javax.inject.Inject;
 import java.time.Instant;
 import java.util.List;
 import java.util.Random;
@@ -7,7 +8,8 @@ import java.util.stream.Collectors;
 
 public class StorySelector {
 
-    static Random random = new Random();
+    @Inject
+    Random random;
 
     public Story select(StoryContext storyContext) {
         List<Story> stories =

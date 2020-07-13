@@ -4,7 +4,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
-import org.apache.camel.PropertyInject;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -17,24 +16,21 @@ import java.util.stream.Stream;
 @Log4j2
 public class StoryLoader {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-
+    @Inject ObjectMapper mapper;
     @Inject AmazonS3 amazonS3;
-    @PropertyInject("gucoca.twitterstories.s3bucketname")
-    String s3BucketName;
-    @PropertyInject("gucoca.twitterstories.s3bucketprefix")
-    String s3BucketPrefix;
-    @PropertyInject("gucoca.twitterstories.issuefilename")
-    String issueFilename;
 
-    public List<Issue> load() {
-        return getKeysForConfigFiles()
+    public List<Issue> load(
+            String s3BucketName,
+            String s3BucketPrefix,
+            String issueFilename
+    ) {
+        return getKeysForConfigFiles(s3BucketName, s3BucketPrefix, issueFilename)
                 .map(fetchConfigFiles())
                 .map(parseAsIssue())
                 .collect(Collectors.toList());
     }
 
-    public Story addStoryCard(Story story) {
+    public Story addStoryCard(Story story, String s3BucketName) {
         String cardKey = String.format("content/issue/%d/story-card-%s.webp",
                 story.getIssue(), story.slug());
         try {
@@ -70,7 +66,11 @@ public class StoryLoader {
                 new GetObjectRequest(s.getBucketName(), s.getKey()));
     }
 
-    private Stream<S3ObjectSummary> getKeysForConfigFiles() {
+    private Stream<S3ObjectSummary> getKeysForConfigFiles(
+            String s3BucketName,
+            String s3BucketPrefix,
+            String issueFilename
+    ) {
         return amazonS3.listObjectsV2(
                 new ListObjectsV2Request()
                         .withBucketName(s3BucketName)
