@@ -34,8 +34,8 @@ class BroadcastHistoryRoutes
                 .minus(noRepeatDays, ChronoUnit.DAYS)
                 .getEpochSecond();
 
-        from(BroadcastHistory.LOAD_ENDPOINT)
-                .routeId("load-history")
+        from("direct:Gucoca.TwitterStories.LoadHistory")
+                .routeId("Gucoca.TwitterStories.LoadHistory")
                 // load history
                 .setHeader(EXPIRY_DATE, () -> expiryDate)
                 .setHeader(DdbConstants.SCAN_FILTER,
@@ -48,7 +48,7 @@ class BroadcastHistoryRoutes
         ;
 
         from(UPDATE_ENDPOINT)
-                .routeId("add-to-history")
+                .routeId("Gucoca.TwitterStories.UpdateHistory")
                 .bean(method(HistorySlugs.class, "createHistoryItem"))
                 .to(awsDynamoDB.put(tableName))
                 .log("Finished")

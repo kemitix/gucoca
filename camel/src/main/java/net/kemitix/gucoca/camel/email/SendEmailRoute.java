@@ -20,14 +20,14 @@ class SendEmailRoute
     @Override
     public void configure() {
         from(SEND)
-                .routeId("send-email")
+                .routeId("Gucoca.SendEmail.Send")
                 .log(String.format(
                         "Sending email to ${header.[%s]}: ${header.[%s]}",
                         SesConstants.TO, SesConstants.SUBJECT))
                 .to(awsSES.send("sender", config));
 
         from(SEND_ERROR)
-                .routeId("send-email-error")
+                .routeId("Gucoca.SendEmail.Send.Error")
                 .setBody(header(Exchange.EXCEPTION_CAUGHT))//FIXME: not much info in this
                 .setHeader(SesConstants.TO, constant(Collections.singletonList(
                         config.getNotificationRecipient())))

@@ -28,7 +28,7 @@ class TwitterStoryPublisherRoute
     public void configure() {
         timelineComponentConfig.prepare(getContext());
         from(PUBLISH)
-                .routeId("twitter-story-publisher")
+                .routeId("Gucoca.TwitterStories.Publish")
                 .choice()
                 .when(exchange -> twitterEnabled)
                 .to("direct:Gucoca.TwitterStoryPublish.Publish.Enabled")
@@ -39,7 +39,7 @@ class TwitterStoryPublisherRoute
         ;
 
         from("direct:Gucoca.TwitterStoryPublish.Publish.Enabled")
-                .routeId("twitter-story-publisher-enabled")
+                .routeId("Gucoca.TwitterStoryPublish.Publish.Enabled")
                 .bean(twitterStoryPost, String.format(
                         "preparePost(${header.[%s]})", STORY))
                 .to("twitter-timeline:USER")

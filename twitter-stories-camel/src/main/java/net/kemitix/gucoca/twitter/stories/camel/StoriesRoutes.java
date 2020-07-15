@@ -36,8 +36,8 @@ class StoriesRoutes
     @Override
     public void configure() throws UnknownHostException {
 
-        from(LOAD_STORIES)
-                .routeId("load-stories")
+        from("direct:Gucoca.TwitterStories.LoadStories")
+                .routeId("Gucoca.TwitterStories.LoadStories")
                 .setBody(exchange -> exchange.getIn()
                         .getBody(StoryContext.class)
                         .withIssues(storyLoader.load(s3BucketName, s3BucketPrefix, issueFilename)))
@@ -46,7 +46,7 @@ class StoriesRoutes
         ;
 
         from(ADD_STORY_CARD)
-                .routeId("add-story-card")
+                .routeId("Gucoca.TwitterStories.AddStoryCard")
                 .bean(storyLoader, "addStoryCard(${body}, {{gucoca.twitterstories.s3bucketname}})")
         ;
 
@@ -58,6 +58,7 @@ class StoriesRoutes
         ValueBuilder hostname = constant(
                 InetAddress.getLocalHost().getHostName());
         from(NOTIFY_SELECTION)
+                .routeId("Gucoca.TwitterStories.NotifyAdmin")
                 .setHeader(SesConstants.FROM, sender)
                 .setHeader(SesConstants.TO, recipient)
                 .setHeader(SesConstants.HTML_EMAIL, constant(true))

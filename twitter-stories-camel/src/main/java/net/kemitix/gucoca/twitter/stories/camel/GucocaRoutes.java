@@ -24,20 +24,45 @@ public class GucocaRoutes extends RouteBuilder {
     public void configure() {
         errorHandler(deadLetterChannel(SendEmail.SEND_ERROR));
         from(postingFrequency.startTimer(postFrequency))
-                .routeId("main")
-                .setHeader(CHANCE_TO_POST, constant(changeToPost))
-                .filter().method(postingFrequency, String.format(
-                        "shouldIRun(${header.[%s]})", CHANCE_TO_POST))
+                .routeId("Gucoca.TwitterStories")
                 .setBody(exchange -> StoryContext.empty())
-                .enrich(BroadcastHistory.LOAD_ENDPOINT)
-                .enrich(Stories.LOAD_STORIES)
-                .filter(simple("${body.stories.size} > 0"))
+                .setHeader("Gucoca.RoutingSlip",
+                        simple("{{gucoca.twitterstories.routingslip}}"))
+                .log("${header.[Gucoca.RoutingSlip]}")
+                .routingSlip(header("Gucoca.RoutingSlip"))
+        ;
+
+        from("direct:Gucoca.TwitterStories.Chance")
+                .routeId("Gucoca.TwitterStories.Chance")
+                .setHeader(CHANCE_TO_POST, constant(changeToPost))
+                .choice()
+                .when(method(postingFrequency, String.format(
+                        "shouldIRun(${header.[%s]})", CHANCE_TO_POST)))
+                .otherwise().stop()
+                .end()
+                .log("Chance - OKAY - running...")
+        ;
+
+        from("direct:Gucoca.TwitterStories.StoriesFound")
+                .routeId("Gucoca.TwitterStories.StoriesFound")
+                .choice()
+                .when(simple("${body.stories.size} > 0"))
+                .otherwise().stop()
+                .end()
+                .log("Found ${body.stories.size} stories")
+        ;
+
+        from("direct:Gucoca.TwitterStories.SelectStory")
+                .routeId("Gucoca.TwitterStories.SelectStory")
                 .bean(storySelector)
                 .log("Story selected ${body.slug}")
-                .enrich(Stories.ADD_STORY_CARD)
-                .to(Stories.NOTIFY_SELECTION)
+        ;
+
+        from("direct:Gucoca.TwitterStories.Delay")
+                .routeId("Gucoca.TwitterStories.Delay")
+                .log("Delaying: " + postDelay + " ms")
                 .delay(postDelay)
-                .to(TwitterStoryPublisher.PUBLISH)
+                .log("Delay over")
         ;
     }
 
