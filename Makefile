@@ -23,3 +23,12 @@ wipe-history:
 	for KEY in ${KEYS} ; do \
 		aws dynamodb delete-item --table-name GucocaBroadcastHistory --key "{\"BroadcastDate\":{\"N\":\"$$KEY\"}}" ;\
 	done
+
+package: .package
+
+.package:
+	mvn package
+	touch .package
+
+image: .package
+	docker build . --tag gucoca:latest
