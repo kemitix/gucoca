@@ -105,46 +105,4 @@ class StoryLoaderTest
         }
     }
 
-    @Nested
-    @DisplayName("addStoryToCard()")
-    public class AddStoryToCardTest {
-
-        Story story = new Story();
-        String s3BucketName = "bucket-name";
-
-        @BeforeEach
-        public void setUp() {
-            story.setIssue(13);
-            story.setUrl("alpha/beta");
-        }
-
-        @Test
-        @DisplayName("add okay")
-        public void addOkay() {
-            //given
-            given(amazonS3.getObject(any(GetObjectRequest.class)))
-                    .willReturn(s3Object);
-            given(s3Object.getObjectContent())
-                    .willReturn(inputStream);
-
-            //when
-            Story result = storyLoader.addStoryCard(story, s3BucketName);
-            //then
-            assertThat(result.getStoryCardInputStream())
-                    .isSameAs(inputStream);
-        }
-        @Test
-        @DisplayName("add not found")
-        public void addError() {
-            //given
-            given(amazonS3.getObject(any(GetObjectRequest.class)))
-                    .willThrow(AmazonS3Exception.class);
-
-            //when
-            Story result = storyLoader.addStoryCard(story, s3BucketName);
-            //then
-            assertThat(result.getStoryCardInputStream())
-                    .isNull();
-        }
-    }
 }

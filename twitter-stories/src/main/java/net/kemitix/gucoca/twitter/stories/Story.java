@@ -1,14 +1,15 @@
 package net.kemitix.gucoca.twitter.stories;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.InputStream;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.List;
 
+@EqualsAndHashCode
 @Setter
 @Getter
 public class Story {
@@ -19,11 +20,15 @@ public class Story {
     private String url;
     private String key;
     private String published;
-    private InputStream storyCardInputStream;
 
     public String slug() {
         String[] split = url.split("/");
         return split[split.length - 1];
+    }
+
+    public String cardKey() {
+        return String.format("content/issue/%d/story-card-%s.webp",
+                getIssue(), slug());
     }
 
     public boolean isPublished(Instant when) {

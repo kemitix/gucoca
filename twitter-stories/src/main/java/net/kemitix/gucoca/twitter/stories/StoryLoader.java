@@ -30,23 +30,6 @@ public class StoryLoader {
                 .collect(Collectors.toList());
     }
 
-    public Story addStoryCard(Story story, String s3BucketName) {
-        String cardKey = String.format("content/issue/%d/story-card-%s.webp",
-                story.getIssue(), story.slug());
-        try {
-            InputStream objectContent = amazonS3.getObject(
-                    new GetObjectRequest(
-                            s3BucketName,
-                            cardKey))
-                    .getObjectContent();
-            story.setStoryCardInputStream(objectContent);
-            return story;
-        } catch (AmazonS3Exception e) {
-            log.warn("Key not found: {}", cardKey);
-            return story;
-        }
-    }
-
     private Function<S3Object, Issue> parseAsIssue() {
         return s3Object -> {
             InputStream content = s3Object.getObjectContent();

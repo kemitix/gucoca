@@ -1,5 +1,8 @@
 package net.kemitix.gucoca.twitter.stories;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import twitter4j.StatusUpdate;
 
 import javax.inject.Inject;
@@ -15,7 +18,10 @@ public class TwitterStoryPost {
     @Inject
     Random random;
 
-    public StatusUpdate preparePost(Story story) {
+    @Inject
+    AmazonS3 amazonS3;
+
+    public StatusUpdate preparePost(Story story, String s3BucketName) {
         String title = story.getTitle();
         String author = story.getAuthor();
         List<String> blurbs = story.getBlurb();
@@ -30,12 +36,24 @@ public class TwitterStoryPost {
                 sb.append(String.format(" #%s", hashtag));
             }
         });
-        InputStream cardStream = story.getStoryCardInputStream();
-        StatusUpdate statusUpdate =
-                new StatusUpdate(sb.toString())
-                        .media("story-card", cardStream);
+        InputStream cardStream = getStoryCardInputStream(story, s3BucketName);
         // can't use attachmentUrl as that is for links on twitter itself
-        return statusUpdate;
+        return new StatusUpdate(sb.toString())
+                .media("story-card", cardStream);
+    }
+
+    private InputStream getStoryCardInputStream(Story story, String s3BucketName) {
+        try {
+            GetObjectRequest request =
+                    new GetObjectRequest(
+                            s3BucketName,
+                            story.cardKey());
+            return amazonS3.getObject(request)
+                    .getObjectContent();
+        } catch (AmazonS3Exception e) {
+            throw new RuntimeException(String.format(
+                    "Key not found: %s", story.cardKey()), e);
+        }
     }
 
 }

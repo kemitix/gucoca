@@ -50,6 +50,7 @@ class BroadcastHistoryRoutes
         from(UPDATE_ENDPOINT)
                 .routeId("Gucoca.TwitterStories.UpdateHistory")
                 .bean(method(HistorySlugs.class, "createHistoryItem"))
+                .setHeader(DdbConstants.ITEM, simple("${body}"))
                 .to(awsDynamoDB.put(tableName))
                 .log("Finished")
         ;

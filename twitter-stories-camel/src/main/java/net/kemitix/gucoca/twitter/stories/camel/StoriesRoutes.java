@@ -45,11 +45,6 @@ class StoriesRoutes
                 .log("Loaded Stories ${body.stories.size}")
         ;
 
-        from(ADD_STORY_CARD)
-                .routeId("Gucoca.TwitterStories.AddStoryCard")
-                .bean(storyLoader, "addStoryCard(${body}, {{gucoca.twitterstories.s3bucketname}})")
-        ;
-
         ValueBuilder sender = constant(emailSender);
         ValueBuilder recipient = constant(Collections.singletonList(
                 notificationRecipient));

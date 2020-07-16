@@ -11,18 +11,20 @@ public class StorySelector {
     @Inject
     Random random;
 
-    public Story select(StoryContext storyContext) {
-        List<Story> stories =
-                storyContext
-                        .stories()
-                        .stream()
-                        .filter(story -> story.isPublished(Instant.now()))
-                        .filter(story -> !story.getBlurb().isEmpty())
-                        .filter(story ->
-                                !storyContext
-                                        .getHistory()
-                                        .contains(story.slug()))
-                        .collect(Collectors.toList());
+    public List<Story> stories(StoryContext storyContext) {
+        return storyContext
+                .stories()
+                .stream()
+                .filter(story -> story.isPublished(Instant.now()))
+                .filter(story -> !story.getBlurb().isEmpty())
+                .filter(story ->
+                        !storyContext
+                                .getHistory()
+                                .contains(story.slug()))
+                .collect(Collectors.toList());
+    }
+
+    public Story select(List<Story> stories) {
         return stories.get(
                 random.nextInt(stories.size()));
     }

@@ -10,6 +10,8 @@ import org.apache.camel.component.aws.ses.SesConstants;
 import javax.inject.Inject;
 import java.util.Collections;
 
+import static org.apache.camel.builder.Builder.bean;
+
 class SendEmailRoute
         extends RouteBuilder
         implements SendEmail {
@@ -28,13 +30,15 @@ class SendEmailRoute
 
         from(SEND_ERROR)
                 .routeId("Gucoca.SendEmail.Send.Error")
-                .setBody(header(Exchange.EXCEPTION_CAUGHT))//FIXME: not much info in this
+                .setBody(bean(ExceptionStackTrace.class, String.format(
+                        "generate(${header.[%s]})", Exchange.EXCEPTION_CAUGHT)))
+                .log("${body}")
                 .setHeader(SesConstants.TO, constant(Collections.singletonList(
                         config.getNotificationRecipient())))
                 .setHeader(SesConstants.FROM, constant(
                         config.getEmailSender()))
-                .setHeader(SesConstants.SUBJECT, constant(
-                        "ERROR"))
+                .setHeader(SesConstants.SUBJECT, simple(String.format(
+                        "ERROR: ${header.[%s]}", Exchange.EXCEPTION_CAUGHT)))
                 .to(SEND);
     }
 

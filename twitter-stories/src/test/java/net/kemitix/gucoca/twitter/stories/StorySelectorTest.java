@@ -55,7 +55,8 @@ class StorySelectorTest
         given(random.nextInt(anyInt()))
                 .willReturn(selectedIndex);
         //when
-        Story result = storySelector.select(contextWithHistory);
+        List<Story> storyList = storySelector.stories(contextWithHistory);
+        Story result = storySelector.select(storyList);
         //then
         assertThat(result).isSameAs(stories.get(selectedIndex + dropped));
     }
