@@ -44,7 +44,9 @@ public class PropertiesLoader {
                     "gucoca-%s-%s.properties", name, env);
 
             // in current directory
-            addFileLocation(component, envFileName);
+            String localFile = String.format("%s/.config/%s",
+                    System.getProperty("user.dir"), envFileName);
+            addFileLocation(component, localFile);
 
             // in $HOME/.config/
             String userFile = String.format("%s/.config/%s",
@@ -55,7 +57,9 @@ public class PropertiesLoader {
         String fileName = String.format("gucoca-%s.properties", name);
 
         // in current directory
-        addFileLocation(component, fileName);
+        String localFile = String.format("%s/.config/%s",
+                System.getProperty("user.dir"), fileName);
+        addFileLocation(component, localFile);
 
         // in $HOME/.config/
         String userFile = String.format("%s/.config/%s",

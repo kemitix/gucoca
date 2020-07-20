@@ -32,10 +32,12 @@ class TwitterStoryPublisherRoute
     public void configure() {
         timelineComponentConfig.prepare(getContext());
         from("direct:Gucoca.TwitterStories.UnmarshalStory")
+                .routeId("Gucoca.TwitterStories.UnmarshalStory")
                 .unmarshal().json(JsonLibrary.Jackson, Story.class)
         ;
 
         from("direct:Gucoca.TwitterStories.isEnabled")
+                .routeId("Gucoca.TwitterStories.isEnabled")
                 .choice()
                 .when(exchange -> twitterEnabled)
                 .to("direct:Gucoca.TwitterStoryPublish.Publish.Enabled")
