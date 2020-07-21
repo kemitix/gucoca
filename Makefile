@@ -7,6 +7,9 @@ build:
 run: hawtio.war gucoca-jms.properties
 	mvn camel:run -pl camel -Pquick
 
+dev: hawtio.war gucoca-jms.properties
+	mvn quarkus:dev -pl gucoca
+
 hawtio.war:
 	curl https://repo1.maven.org/maven2/io/hawt/hawtio-default/2.10.1/hawtio-default-2.10.1.war \
 		-o hawtio.war
