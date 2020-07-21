@@ -81,6 +81,11 @@
             <!-- gucoca -->
             <dependency>
                 <groupId>net.kemitix.gucoca</groupId>
+                <artifactId>gucoca-camel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.kemitix.gucoca</groupId>
                 <artifactId>gucoca-twitter-stories</artifactId>
                 <version>${project.version}</version>
             </dependency>
