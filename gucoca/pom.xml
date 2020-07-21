@@ -18,6 +18,8 @@
     <quarkus.platform.version>1.6.0.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <lombok.version>1.18.12</lombok.version>
+    <aws-java-sdk-s3.version>1.11.820</aws-java-sdk-s3.version>
+    <hawtio.version>2.10.1</hawtio.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -42,7 +44,7 @@
     <!-- Gucoca Legacy -->
     <dependency>
       <groupId>net.kemitix.gucoca</groupId>
-      <artifactId>gucoca-camel</artifactId>
+      <artifactId>gucoca-twitter-stories-camel</artifactId>
     </dependency>
 
     <!-- Quarkus -->
@@ -76,7 +78,73 @@
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-endpointdsl</artifactId>
     </dependency>
+    <!-- Camel ActiveMQ -->
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-activemq</artifactId>
+    </dependency>
+    <!-- Camel Amazon S3 -->
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-aws-s3</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.amazonaws</groupId>
+          <artifactId>aws-java-sdk-s3</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.kemitix.aws</groupId>
+      <artifactId>kemitix-aws-java-sdk-s3-wrapper</artifactId>
+      <version>${aws-java-sdk-s3.version}</version>
+    </dependency>
+    <!-- Camel Amazon DynamoDB -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-aws-ddb</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.amazonaws</groupId>
+          <artifactId>aws-java-sdk-dynamodb</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.kemitix.aws</groupId>
+      <artifactId>kemitix-aws-java-sdk-dynamodb-wrapper</artifactId>
+    </dependency>
+    <!-- Camel Amazon SES -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-aws-ses</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.amazonaws</groupId>
+          <artifactId>aws-java-sdk-ses</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.kemitix.aws</groupId>
+      <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
+    </dependency>
+    <!-- Camel Velocity Templating -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-velocity</artifactId>
+    </dependency>
+    <!-- hawt.io / Camel Management -->
+    <dependency>
+      <groupId>io.hawt</groupId>
+      <artifactId>hawtio-embedded</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-management</artifactId>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -104,6 +172,11 @@
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.hawt</groupId>
+        <artifactId>hawtio-maven-plugin</artifactId>
+        <version>${hawtio.version}</version>
       </plugin>
     </plugins>
   </build>
