@@ -1,9 +1,5 @@
 package net.kemitix.gucoca.twitter;
 
-import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.Story;
-import net.kemitix.gucoca.twitter.stories.TwitterStoryPost;
-import net.kemitix.gucoca.twitter.stories.TwitterStoryPublisher;
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;

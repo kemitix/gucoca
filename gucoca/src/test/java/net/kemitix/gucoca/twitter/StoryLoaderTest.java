@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories;
+package net.kemitix.gucoca.twitter;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
@@ -35,7 +35,8 @@ class StoryLoaderTest
     @Mock S3ObjectInputStream inputStream;
     @Mock ObjectMapper objectMapper;
 
-    @InjectMocks StoryLoader storyLoader;
+    @InjectMocks
+    StoryLoader storyLoader;
 
     @Nested
     @DisplayName("load()")

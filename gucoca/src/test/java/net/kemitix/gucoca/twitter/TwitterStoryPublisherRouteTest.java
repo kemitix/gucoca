@@ -2,9 +2,6 @@ package net.kemitix.gucoca.twitter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.Story;
-import net.kemitix.gucoca.twitter.stories.TwitterStoryPost;
 import org.apache.camel.Exchange;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;

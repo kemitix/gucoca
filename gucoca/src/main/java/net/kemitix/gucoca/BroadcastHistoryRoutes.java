@@ -1,8 +1,8 @@
 package net.kemitix.gucoca;
 
 import net.kemitix.gucoca.common.spi.AwsDynamoDB;
-import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
-import net.kemitix.gucoca.twitter.stories.HistorySlugs;
+import net.kemitix.gucoca.twitter.BroadcastHistory;
+import net.kemitix.gucoca.twitter.HistorySlugs;
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ddb.DdbConstants;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import static net.kemitix.gucoca.twitter.stories.HistorySlugs.EXPIRY_DATE;
+import static net.kemitix.gucoca.twitter.HistorySlugs.EXPIRY_DATE;
 import static org.apache.camel.builder.Builder.bean;
 
 class BroadcastHistoryRoutes

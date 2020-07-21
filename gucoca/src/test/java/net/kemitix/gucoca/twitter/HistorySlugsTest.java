@@ -1,7 +1,6 @@
-package net.kemitix.gucoca.twitter.stories;
+package net.kemitix.gucoca.twitter;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.Condition;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;

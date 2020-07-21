@@ -18,6 +18,7 @@
     <quarkus.platform.version>1.6.0.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <lombok.version>1.18.12</lombok.version>
+    <log4j2.version>2.13.3</log4j2.version>
     <aws-java-sdk-s3.version>1.11.820</aws-java-sdk-s3.version>
     <aws-java-sdk-dynamodb.version>1.11.820</aws-java-sdk-dynamodb.version>
     <aws-java-sdk-ses.version>1.11.820</aws-java-sdk-ses.version>
@@ -46,7 +47,7 @@
     <!-- Gucoca Legacy -->
     <dependency>
       <groupId>net.kemitix.gucoca</groupId>
-      <artifactId>gucoca-twitter-stories</artifactId>
+      <artifactId>gucoca-common</artifactId>
     </dependency>
 
     <!-- Quarkus -->
@@ -61,6 +62,13 @@
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
       <optional>true</optional>
+    </dependency>
+
+    <!-- logging -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j2.version}</version>
     </dependency>
 
     <!-- Testing -->

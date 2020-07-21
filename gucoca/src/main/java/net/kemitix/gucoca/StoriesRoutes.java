@@ -1,9 +1,9 @@
 package net.kemitix.gucoca;
 
 import net.kemitix.gucoca.common.spi.SendEmail;
-import net.kemitix.gucoca.twitter.stories.Stories;
-import net.kemitix.gucoca.twitter.stories.StoryContext;
-import net.kemitix.gucoca.twitter.stories.StoryLoader;
+import net.kemitix.gucoca.twitter.Stories;
+import net.kemitix.gucoca.twitter.StoryContext;
+import net.kemitix.gucoca.twitter.StoryLoader;
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.SimpleBuilder;

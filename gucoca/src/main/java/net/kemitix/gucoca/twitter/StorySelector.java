@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories;
+package net.kemitix.gucoca.twitter;
 
 import javax.inject.Inject;
 import java.time.Instant;

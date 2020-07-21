@@ -1,7 +1,8 @@
 package net.kemitix.gucoca;
 
 import net.kemitix.gucoca.common.spi.SendEmail;
-import net.kemitix.gucoca.twitter.stories.*;
+import net.kemitix.gucoca.twitter.PostingFrequency;
+import net.kemitix.gucoca.twitter.StorySelector;
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -10,8 +11,10 @@ import javax.inject.Inject;
 public class GucocaRoutes extends RouteBuilder {
 
     private static final String CHANCE_TO_POST = "Gucoca.TwitterStories.ChanceToPost";
-    @Inject PostingFrequency postingFrequency;
-    @Inject StorySelector storySelector;
+    @Inject
+    PostingFrequency postingFrequency;
+    @Inject
+    StorySelector storySelector;
 
     @PropertyInject("gucoca.twitterstories.chancetopost")
     String changeToPost;

@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories;
+package net.kemitix.gucoca.twitter;
 
 public interface BroadcastHistory {
 

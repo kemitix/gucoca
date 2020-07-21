@@ -1,7 +1,7 @@
 package net.kemitix.gucoca;
 
-import net.kemitix.gucoca.twitter.stories.PostingFrequency;
-import net.kemitix.gucoca.twitter.stories.StoryContext;
+import net.kemitix.gucoca.twitter.PostingFrequency;
+import net.kemitix.gucoca.twitter.StoryContext;
 import org.apache.camel.PropertyInject;
 import org.apache.camel.builder.RouteBuilder;
 
