@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories.camel;
+package net.kemitix.gucoca;
 
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
