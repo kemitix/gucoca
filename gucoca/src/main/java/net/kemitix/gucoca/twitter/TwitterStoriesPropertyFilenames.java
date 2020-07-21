@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories.camel;
+package net.kemitix.gucoca.twitter;
 
 import net.kemitix.gucoca.common.spi.PropertyFilenames;
 
