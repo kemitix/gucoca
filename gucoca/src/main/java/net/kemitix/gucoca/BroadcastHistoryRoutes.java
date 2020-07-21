@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories.camel;
+package net.kemitix.gucoca;
 
 import net.kemitix.gucoca.common.spi.AwsDynamoDB;
 import net.kemitix.gucoca.twitter.stories.BroadcastHistory;
