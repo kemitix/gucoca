@@ -143,6 +143,18 @@
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-management</artifactId>
     </dependency>
+
+    <!-- Camel Jackson -->
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-jackson</artifactId>
+    </dependency>
+    <!-- Twitter -->
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-twitter</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
