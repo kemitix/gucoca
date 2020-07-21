@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.twitter.stories.camel;
+package net.kemitix.gucoca.twitter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
