@@ -11,6 +11,7 @@
         <module>twitter-stories</module>
         <module>twitter-stories-camel</module>
         <module>common</module>
+        <module>gucoca</module>
     </modules>
 
     <groupId>net.kemitix.gucoca</groupId>
