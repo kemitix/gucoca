@@ -46,7 +46,7 @@
     <!-- Gucoca Legacy -->
     <dependency>
       <groupId>net.kemitix.gucoca</groupId>
-      <artifactId>gucoca-twitter-stories-camel</artifactId>
+      <artifactId>gucoca-twitter-stories</artifactId>
     </dependency>
 
     <!-- Quarkus -->
