@@ -19,6 +19,8 @@
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <lombok.version>1.18.12</lombok.version>
     <aws-java-sdk-s3.version>1.11.820</aws-java-sdk-s3.version>
+    <aws-java-sdk-dynamodb.version>1.11.820</aws-java-sdk-dynamodb.version>
+    <aws-java-sdk-ses.version>1.11.820</aws-java-sdk-ses.version>
     <hawtio.version>2.10.1</hawtio.version>
   </properties>
   <dependencyManagement>
@@ -113,6 +115,7 @@
     <dependency>
       <groupId>net.kemitix.aws</groupId>
       <artifactId>kemitix-aws-java-sdk-dynamodb-wrapper</artifactId>
+      <version>${aws-java-sdk-dynamodb.version}</version>
     </dependency>
     <!-- Camel Amazon SES -->
     <dependency>
@@ -128,6 +131,7 @@
     <dependency>
       <groupId>net.kemitix.aws</groupId>
       <artifactId>kemitix-aws-java-sdk-ses-wrapper</artifactId>
+      <version>${aws-java-sdk-ses.version}</version>
     </dependency>
     <!-- Camel Velocity Templating -->
     <dependency>
