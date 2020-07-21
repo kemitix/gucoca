@@ -1,6 +1,6 @@
 package net.kemitix.gucoca;
 
-import net.kemitix.gucoca.common.spi.SendEmail;
+import net.kemitix.gucoca.email.SendEmail;
 import net.kemitix.gucoca.twitter.Stories;
 import net.kemitix.gucoca.twitter.StoryContext;
 import net.kemitix.gucoca.twitter.StoryLoader;

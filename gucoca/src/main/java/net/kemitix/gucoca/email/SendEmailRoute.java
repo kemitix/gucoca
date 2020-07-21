@@ -1,8 +1,7 @@
 package net.kemitix.gucoca.email;
 
-import net.kemitix.gucoca.common.spi.AwsSES;
-import net.kemitix.gucoca.common.spi.AwsSesConfig;
-import net.kemitix.gucoca.common.spi.SendEmail;
+import net.kemitix.gucoca.aws.AwsSES;
+import net.kemitix.gucoca.aws.AwsSesConfig;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws.ses.SesConstants;

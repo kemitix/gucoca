@@ -1,6 +1,6 @@
 package net.kemitix.gucoca.jms;
 
-import net.kemitix.gucoca.common.spi.PropertyFilenames;
+import net.kemitix.gucoca.PropertyFilenames;
 
 public class JMSPropertiesFilename
         implements PropertyFilenames {

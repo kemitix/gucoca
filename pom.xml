@@ -6,8 +6,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>parent</module>
-        <module>testing</module>
-        <module>common</module>
         <module>gucoca</module>
     </modules>
 

@@ -1,6 +1,6 @@
 package net.kemitix.gucoca;
 
-import net.kemitix.gucoca.common.spi.SendEmail;
+import net.kemitix.gucoca.email.SendEmail;
 import net.kemitix.gucoca.twitter.PostingFrequency;
 import net.kemitix.gucoca.twitter.StorySelector;
 import org.apache.camel.PropertyInject;

@@ -78,18 +78,6 @@
                 <version>${weld3.version}</version>
             </dependency>
 
-            <!-- gucoca -->
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.kemitix.gucoca</groupId>
-                <artifactId>gucoca-testing</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

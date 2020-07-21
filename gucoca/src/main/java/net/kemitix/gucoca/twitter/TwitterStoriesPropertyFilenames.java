@@ -1,6 +1,6 @@
 package net.kemitix.gucoca.twitter;
 
-import net.kemitix.gucoca.common.spi.PropertyFilenames;
+import net.kemitix.gucoca.PropertyFilenames;
 
 public class TwitterStoriesPropertyFilenames
         implements PropertyFilenames {

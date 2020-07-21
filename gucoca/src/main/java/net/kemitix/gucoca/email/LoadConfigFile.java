@@ -1,8 +1,8 @@
 package net.kemitix.gucoca.email;
 
-import net.kemitix.gucoca.common.ServiceSupplier;
-import net.kemitix.gucoca.common.spi.AwsSesConfig;
-import net.kemitix.gucoca.common.spi.JsonObjectParser;
+import net.kemitix.gucoca.ServiceSupplier;
+import net.kemitix.gucoca.aws.AwsSesConfig;
+import net.kemitix.gucoca.JsonObjectParser;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

@@ -1,6 +1,6 @@
 package net.kemitix.gucoca;
 
-import net.kemitix.gucoca.common.spi.AwsDynamoDB;
+import net.kemitix.gucoca.aws.AwsDynamoDB;
 import net.kemitix.gucoca.twitter.BroadcastHistory;
 import net.kemitix.gucoca.twitter.HistorySlugs;
 import org.apache.camel.PropertyInject;

@@ -1,8 +1,5 @@
 package net.kemitix.gucoca.aws;
 
-import net.kemitix.gucoca.common.spi.AwsS3;
-import net.kemitix.gucoca.common.spi.AwsS3Config;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

@@ -1,7 +1,5 @@
 package net.kemitix.gucoca.aws;
 
-import net.kemitix.gucoca.common.spi.AwsDynamoDB;
-
 import java.util.Arrays;
 
 class AwsDynamoDBImpl implements AwsDynamoDB {

@@ -44,12 +44,6 @@
   </dependencyManagement>
   <dependencies>
 
-    <!-- Gucoca Legacy -->
-    <dependency>
-      <groupId>net.kemitix.gucoca</groupId>
-      <artifactId>gucoca-common</artifactId>
-    </dependency>
-
     <!-- Quarkus -->
     <dependency>
       <groupId>io.quarkus</groupId>
