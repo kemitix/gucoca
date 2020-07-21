@@ -23,9 +23,11 @@
     <aws-java-sdk-dynamodb.version>1.11.820</aws-java-sdk-dynamodb.version>
     <aws-java-sdk-ses.version>1.11.820</aws-java-sdk-ses.version>
     <hawtio.version>2.10.1</hawtio.version>
+    <camel.version>3.4.0</camel.version>
   </properties>
   <dependencyManagement>
     <dependencies>
+      <!-- Quarkus -->
       <dependency>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>${quarkus.platform.artifact-id}</artifactId>
@@ -33,12 +35,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <!-- Apache Camel -->
       <dependency>
-        <groupId>net.kemitix.gucoca</groupId>
-        <artifactId>gucoca-parent</artifactId>
-        <version>${project.version}</version>
-        <type>pom</type>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-bom</artifactId>
+        <version>${camel.version}</version>
         <scope>import</scope>
+        <type>pom</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -159,6 +162,7 @@
     <dependency>
       <groupId>io.hawt</groupId>
       <artifactId>hawtio-embedded</artifactId>
+      <version>${hawtio.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
