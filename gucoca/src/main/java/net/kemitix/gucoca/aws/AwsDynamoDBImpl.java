@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel.aws;
+package net.kemitix.gucoca.aws;
 
 import net.kemitix.gucoca.common.spi.AwsDynamoDB;
 

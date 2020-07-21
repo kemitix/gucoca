@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel.jms;
+package net.kemitix.gucoca.jms;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.activemq.ActiveMQConnectionFactory;

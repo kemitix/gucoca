@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca;
 
 import net.kemitix.gucoca.common.spi.PropertyFilenames;
 import org.apache.camel.component.properties.PropertiesComponent;

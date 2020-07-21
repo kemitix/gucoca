@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel.email;
+package net.kemitix.gucoca.email;
 
 import net.kemitix.gucoca.common.ServiceSupplier;
 import net.kemitix.gucoca.common.spi.AwsSesConfig;

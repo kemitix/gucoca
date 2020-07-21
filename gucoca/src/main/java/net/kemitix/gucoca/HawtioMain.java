@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel;
+package net.kemitix.gucoca;
 
 import io.hawt.embedded.Main;
 import lombok.extern.log4j.Log4j2;

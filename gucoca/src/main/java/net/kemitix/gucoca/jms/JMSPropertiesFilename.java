@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel.jms;
+package net.kemitix.gucoca.jms;
 
 import net.kemitix.gucoca.common.spi.PropertyFilenames;
 

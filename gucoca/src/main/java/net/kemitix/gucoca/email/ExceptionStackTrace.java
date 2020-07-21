@@ -1,4 +1,4 @@
-package net.kemitix.gucoca.camel.email;
+package net.kemitix.gucoca.email;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
