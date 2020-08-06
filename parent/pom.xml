@@ -26,7 +26,7 @@
 
         <aws-java-sdk-s3.version>1.11.834</aws-java-sdk-s3.version>
         <aws-java-sdk-dynamodb.version>1.11.820</aws-java-sdk-dynamodb.version>
-        <aws-java-sdk-ses.version>1.11.831</aws-java-sdk-ses.version>
+        <aws-java-sdk-ses.version>1.11.834</aws-java-sdk-ses.version>
 
         <jackson-databind-aws-sdk-java.version>2.9.10.5</jackson-databind-aws-sdk-java.version>
         <lombok.version>1.18.12</lombok.version>
