@@ -32,7 +32,7 @@
         <lombok.version>1.18.12</lombok.version>
 
         <deltaspike.version>1.9.4</deltaspike.version>
-        <weld3.version>3.1.4.Final</weld3.version>
+        <weld3.version>3.1.5.Final</weld3.version>
         <log4j2.version>2.13.3</log4j2.version>
         <cdi-api.version>2.0</cdi-api.version>
         <camel.version>3.4.2</camel.version>
