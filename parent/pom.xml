@@ -25,7 +25,7 @@
         <kemitix-checkstyle.version>5.4.0</kemitix-checkstyle.version>
 
         <aws-java-sdk-s3.version>1.11.856</aws-java-sdk-s3.version>
-        <aws-java-sdk-dynamodb.version>1.11.834</aws-java-sdk-dynamodb.version>
+        <aws-java-sdk-dynamodb.version>1.11.856</aws-java-sdk-dynamodb.version>
         <aws-java-sdk-ses.version>1.11.853</aws-java-sdk-ses.version>
 
         <jackson-databind-aws-sdk-java.version>2.10.0</jackson-databind-aws-sdk-java.version>
